@@ -35,7 +35,7 @@
 
     The corresponding R wrap functions are
 
-    (1) mainZTM - calls mainRcpp with the directory that contains the config.txt
+    (1) ztmR - calls mainRcpp with the directory that contains the config.txt
     (2) testExample - a test function that runs the provided ZTM examplea
 
 # Examples
@@ -43,7 +43,7 @@
     Assumes that you are in the directory of dynCluster, 
 
     (1) testExample("./example", nThreads=4, comeBack=TRUE)
-    (2) mainZTM("./example", comeBack=TRUE)
+    (2) ztmR("./example", comeBack=TRUE)
     
     Note: The default value of comeBack is FALSE, meaning it will stay in the directory specified by the first parameter, instead of returning to the current directory after the job is done.
 

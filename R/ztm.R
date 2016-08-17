@@ -135,7 +135,7 @@ testExample <- function(dataDirectory = "./", nThreads = 6, comeBack = FALSE) {
 #' @export
 #'
 #' @examples
-mainZTM <- function(dataDirectory = "./", comeBack = FALSE) {
+ztmR <- function(dataDirectory = "./", comeBack = FALSE) {
   # take care of the extreme input
   if (is.null(dataDirectory)) {
     dataDirectory = "./"
