@@ -29,24 +29,31 @@ sourceCpp("./src/mainRcpp.cpp")
 #'
 #' @param nsim                number of simulation
 #' @param maxiter             max number of iteration
-#' @param eps
-#' @param numModelsM
-#' @param nu
-#' @param OP_w_ij_inp
-#' @param years
-#' @param numThreads
-#' @param total_mc_trials
-#' @param q_filename
-#' @param mu_filename
-#' @param sigmasq_filename
-#' @param pi_filename
-#' @param zeta_filename
-#' @param seedOffset
+#' @param eps                 epsilon
+#' @param numModelsM          number of models
+#' @param nu                  nu
+#' @param OP_w_ij_inp         w_ij
+#' @param years               data years (such as 1962,1972,1982,1992,2002). Data file names are like dynamic_1962.csv
+#' @param numThreads          number of threads to run parallel (OpenMP)
+#' @param total_mc_trials     number of MC trials
+#' @param q_filename          Q_cluster file name
+#' @param mu_filename         MU_cluster file name
+#' @param sigmasq_filename    SIGMA_cluster file name
+#' @param pi_filename         PI_cluster file name
+#' @param zeta_filename       ZETA file name
+#' @param seedOffset          random seed offset
 #'
-#' @return 1 for error and 0 for success
+#' @return                    1 for error and 0 for success
 #' @export
 #'
 #' @examples
+#' library(Rcpp)
+#' Sys.setenv("PKG_CXXFLAGS" = "-fopenmp -lboost_regex")
+#' Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
+#' \dontrun{sourceCpp("./src/mainRcpp.cpp")}
+#' \dontrun{setwd("./example")}
+#' \dontrun{ztm()}
+#' \dontrun{setwd("./..")}
 ztmR <- function(nsim = 1,
                  maxiter = 5,
                  eps = 0.001,
@@ -77,14 +84,19 @@ ztmR <- function(nsim = 1,
 
 #' Title This is an example of using ztmR, assuming the required data is in the dataDirectory
 #'
-#' @param dataDirectory
-#' @param nThreads
-#' @param comeBack
+#' @param dataDirectory    the working directory contains the data
+#' @param nThreads         number of threads
+#' @param comeBack         return from the working directory
 #'
-#' @return 1 for error and 0 for success
+#' @return                 1 for error and 0 for success
 #' @export
 #'
 #' @examples
+#' library(Rcpp)
+#' Sys.setenv("PKG_CXXFLAGS" = "-fopenmp -lboost_regex")
+#' Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
+#' \dontrun{sourceCpp("./src/mainRcpp.cpp")}
+#' \dontrun{testExample("./example", nThreads=4, comeBack=TRUE)}
 testExample <- function(dataDirectory = "./", nThreads = 6, comeBack = FALSE) {
   # take care of the extreme input
   if (is.null(dataDirectory)) {
@@ -128,13 +140,18 @@ testExample <- function(dataDirectory = "./", nThreads = 6, comeBack = FALSE) {
 
 #' Title This is a function that calls the CPP ZTM code via a config.txt which specifies parameters and data
 #'
-#' @param dataDirectory
-#' @param comeBack
+#' @param dataDirectory     the working directory contains the data
+#' @param comeBack          return from the working directory
 #'
-#' @return 1 for error and 0 for success
+#' @return                  1 for error and 0 for success
 #' @export
 #'
 #' @examples
+#' library(Rcpp)
+#' Sys.setenv("PKG_CXXFLAGS" = "-fopenmp -lboost_regex")
+#' Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
+#' \dontrun{sourceCpp("./src/mainRcpp.cpp")}
+#' \dontrun{mainZTM("./example", comeBack=TRUE)}
 mainZTM <- function(dataDirectory = "./", comeBack = FALSE) {
   # take care of the extreme input
   if (is.null(dataDirectory)) {
