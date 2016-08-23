@@ -6,7 +6,9 @@ Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
 # sourceCpp("./src/ChkpBase.cpp")
 # sourceCpp("./src/ZeroTradeModel.cpp")
 # sourceCpp("./src/ZeroTradeModelIO.cpp")
-sourceCpp("./src/mainRcpp.cpp")
+sourceCpp("./src/mainRcpp.cpp", cacheDir = "./lib", showOutput = TRUE, cleanupCacheDir = TRUE, rebuild = FALSE,  verbose = FALSE)
+system("mv `ls ./lib/*/*/*.so` ./lib/dynCluster.so")
+system("rm -rf ./lib/sourceCpp*")
 
 #
 # This will automatically generate the binary objects of mainRcpp and ztm (same as click "Build" in RStudio:
