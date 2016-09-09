@@ -38,18 +38,18 @@
 #'
 #' @param nsim                number of simulation
 #' @param maxiter             max number of iteration
-#' @param eps                 epsilon
+#' @param eps                 epsilon (not really used in the CPP code???)
 #' @param numModelsM          number of models
-#' @param nu                  nu
-#' @param OP_w_ij_inp         w_ij
+#' @param nu                  the scaling parameter for zero-trade probability
+#' @param OP_w_ij_inp         mixture responsibilities
 #' @param years               data years (such as 1962,1972,1982,1992,2002). Data file names are like dynamic_1962.csv
 #' @param numThreads          number of threads to run parallel (OpenMP)
 #' @param total_mc_trials     number of MC trials
-#' @param q_filename          Q_cluster file name
-#' @param mu_filename         MU_cluster file name
-#' @param sigmasq_filename    SIGMA_cluster file name
-#' @param pi_filename         PI_cluster file name
-#' @param zeta_filename       ZETA file name
+#' @param q_filename          Q_cluster file to output Bernoulli probability for zero trade
+#' @param mu_filename         MU_cluster file to output mean of the normal distribution
+#' @param sigmasq_filename    SIGMA_cluster file to output variance of the normal distribution
+#' @param pi_filename         PI_cluster file to output mixture probability
+#' @param zeta_filename       ZETA file to output responsibilities
 #' @param seedOffset          random seed offset
 #'
 #' @return                    1 for error and 0 for success
