@@ -1,19 +1,26 @@
-library(Rcpp)
-Sys.setenv("PKG_CXXFLAGS" = "-fopenmp -lboost_regex")
-Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
+# library(Rcpp)
+# Sys.setenv("PKG_CXXFLAGS" = "-fopenmp -lboost_regex")
+# Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
 # These will be compiled by the Makefile, no need to use Rcpp compile here as the functions in them are all internal
 # sourceCpp("./src/Analytics.cpp")
 # sourceCpp("./src/ChkpBase.cpp")
 # sourceCpp("./src/ZeroTradeModel.cpp")
 # sourceCpp("./src/ZeroTradeModelIO.cpp")
-sourceCpp("./src/mainRcpp.cpp", cacheDir = "./lib", showOutput = TRUE, cleanupCacheDir = TRUE, rebuild = FALSE,  verbose = FALSE)
-system("mv `ls ./lib/*/*/*.so` ./lib/dynCluster.so")
-system("rm -rf ./lib/sourceCpp*")
+#
+# sourceCpp("./src/mainRcpp.cpp", cacheDir = "./libs", showOutput = TRUE, cleanupCacheDir = TRUE, rebuild = TRUE,  verbose = TRUE)
+#
+# sourceCpp("./src/mainRcpp.cpp", cacheDir = "./libs", showOutput = TRUE, cleanupCacheDir = TRUE, rebuild = FALSE,  verbose = TRUE)
+# system("mv `ls ./libs/*/*/*.so` ./src/dynCluster.so")
+# system("rm -rf ./libs/sourceCpp*")
 
 #
 # This will automatically generate the binary objects of mainRcpp and ztm (same as click "Build" in RStudio:
 #
 #     devtools::document(roclets=c('rd', 'collate', 'namespace'))
+#
+# Or build check:
+#
+#     devtools::check()
 #
 # You can learn more about package authoring with RStudio at:
 #

@@ -1,67 +1,44 @@
 # Please edit Makefile for your system
 SHELL = /bin/sh
 CC    = g++ 
-F77   = gfortran
-#CXX   = mpicxx
-#CXX   = /Users/saksena/gcc-4.8.1/bin/g++
 CXX   = g++
-#F90   = mpif90
-F90   = gfortran
-MAKE  = make --no-print-directory
-#LIBS  = -lmpi
-#MPIRUN= mpirun
-#NP_ARG= -np
-LD_FLAGS=
+LIBS  = -m64 -shared -L/usr/lib64/R/lib -lR
+LD_FLAGS= 
 
-all: ZTM 
-
-
-#CFLAGS = -O0 -g -fopenmp -I/Users/saksena/boost_1_53_0/include -L/Users/saksena/boost_1_53_0/lib -lboost_regex
-#CXXFLAGS = -O0 -g -fopenmp -I/Users/saksena/boost_1_53_0/include -L/Users/saksena/boost_1_53_0/lib -lboost_regex
-
-# CFLAGS = -O2 -fopenmp -I/Users/saksena/boost_1_53_0/include -L/Users/saksena/boost_1_53_0/lib -lboost_regex
-# CXXFLAGS = -O2 -fopenmp -I/Users/saksena/boost_1_53_0/include -L/Users/saksena/boost_1_53_0/lib -lboost_regex
-
-# CFLAGS = -O2 -fopenmp -I/home/insong/boost_1_53_0/include -L/home/insong/boost_1_53_0/lib -lboost_regex
-# CXXFLAGS = -O2 -fopenmp -I/home/insong/boost_1_53_0/include -L/home/insong/boost_1_53_0/lib -lboost_regex
+all: ZTM dynCluster.so
 
 FLAGS = -O2 -fopenmp -lboost_regex
-CXXFLAGS = -O2 -fopenmp -lboost_regex
+CXXFLAGS = -DNDEBUG -fopenmp -lboost_regex -fpic -O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic
+RCPPFLAGS = -I"/home/hubertj/R/x86_64-redhat-linux-gnu-library/3.3/Rcpp/include" -I/usr/include/R -L/usr/lib64/R/lib -lR
 
-.SUFFIXES: .o .c .f .cc .cpp .f90
+.SUFFIXES: .o .c .cc .cpp 
 .c:
 	${CC} ${CFLAGS} -o $* $< ${LIBS}
-.c.o:
-	${CC} ${CFLAGS} -c $<
-.f:
-	${F77} ${FFLAGS} -o $* $< ${LIBS}
-.f.o:
-	${F77} ${FFLAGS} -c $<
-.f90:
-	${F90} ${F90FLAGS} -o $* $< ${LIBS}
 .cc:
 	${CXX} ${CXXFLAGS} -o $* $< ${LIBS}
 .cpp:
 	${CXX} ${CXXFLAGS} -o $* $< ${LIBS}
 
-OBJS = Analytics.o ChkpBase.o ZeroTradeModel.o ZeroTradeModelIO.o main.o 
-OBJSF = Analytics.o ChkpBase.o ZeroTradeModel.o ZeroTradeModelIO.o mainF.o
-OBJS2 = generateDataset.o
+OBJS = Analytics.o ChkpBase.o ZeroTradeModel.o ZeroTradeModelIO.o
+OBJ1 = main.o
+OBJ2 = mainRcpp.o
 
-DEFAULT: ZTM 
+DEFAULT: ZTM dynCluster.so
 clean:
-	rm -f *.o
+	rm -f *.o 
+	rm -f *.so
 	rm -f *~
 	rm -f core
 	rm -f ZeroTradeModel
 	rm -f ZeroTradeModelIO
 	rm -f ZTM
 
-ZTM: $(OBJS)
-	$(CXX) -o $@ $(CXXFLAGS) $(OBJS) $(LD_FLAGS) -fopenmp
+ZTM: $(OBJS) $(OBJ1)
+	$(CXX) -o $@ $(CXXFLAGS) $(OBJS) $(OBJ1) $(LD_FLAGS)
 
-generateDataset: $(OBJS2)
-	$(CXX) -o $@ $(CXXFLAGS) $(OBJS2) $(LD_FLAGS) -fopenmp
+mainRcpp.o: 
+	$(CXX) $(RCPPFLAGS) $(CXXFLAGS) -c mainRcpp.cpp -o mainRcpp.o ${LIBS}
 
-#sources:
-#	@echo ${SOURCES}
+dynCluster.so: $(OBJS) $(OBJ2)
+	$(CXX) $(FLAGS) $(OBJS) $(OBJ2) -o dynCluster.so ${LIBS}
+	cp -f dynCluster.so ../libs/.

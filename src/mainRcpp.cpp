@@ -363,3 +363,43 @@ int mainRcpp(string configTxt, int randomSeed) {
                 q_filename, mu_filename, sigmasq_filename, pi_filename, zeta_filename, seedOffset);
 }
 
+
+
+#include <Rcpp.h>
+// ztm
+int ztm(int nsim, int maxiter, long double eps, int numModelsM, long double nu, long double OP_w_ij_inp, string inputYears, int numThreads, int total_mc_trials, string q_filename, string mu_filename, string sigmasq_filename, string pi_filename, string zeta_filename, int seedOffset);
+RcppExport SEXP sourceCpp_1_ztm(SEXP nsimSEXP, SEXP maxiterSEXP, SEXP epsSEXP, SEXP numModelsMSEXP, SEXP nuSEXP, SEXP OP_w_ij_inpSEXP, SEXP inputYearsSEXP, SEXP numThreadsSEXP, SEXP total_mc_trialsSEXP, SEXP q_filenameSEXP, SEXP mu_filenameSEXP, SEXP sigmasq_filenameSEXP, SEXP pi_filenameSEXP, SEXP zeta_filenameSEXP, SEXP seedOffsetSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< int >::type nsim(nsimSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    Rcpp::traits::input_parameter< long double >::type eps(epsSEXP);
+    Rcpp::traits::input_parameter< int >::type numModelsM(numModelsMSEXP);
+    Rcpp::traits::input_parameter< long double >::type nu(nuSEXP);
+    Rcpp::traits::input_parameter< long double >::type OP_w_ij_inp(OP_w_ij_inpSEXP);
+    Rcpp::traits::input_parameter< string >::type inputYears(inputYearsSEXP);
+    Rcpp::traits::input_parameter< int >::type numThreads(numThreadsSEXP);
+    Rcpp::traits::input_parameter< int >::type total_mc_trials(total_mc_trialsSEXP);
+    Rcpp::traits::input_parameter< string >::type q_filename(q_filenameSEXP);
+    Rcpp::traits::input_parameter< string >::type mu_filename(mu_filenameSEXP);
+    Rcpp::traits::input_parameter< string >::type sigmasq_filename(sigmasq_filenameSEXP);
+    Rcpp::traits::input_parameter< string >::type pi_filename(pi_filenameSEXP);
+    Rcpp::traits::input_parameter< string >::type zeta_filename(zeta_filenameSEXP);
+    Rcpp::traits::input_parameter< int >::type seedOffset(seedOffsetSEXP);
+    __result = Rcpp::wrap(ztm(nsim, maxiter, eps, numModelsM, nu, OP_w_ij_inp, inputYears, numThreads, total_mc_trials, q_filename, mu_filename, sigmasq_filename, pi_filename, zeta_filename, seedOffset));
+    return __result;
+END_RCPP
+}
+// mainRcpp
+int mainRcpp(string configTxt, int randomSeed);
+RcppExport SEXP sourceCpp_1_mainRcpp(SEXP configTxtSEXP, SEXP randomSeedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< string >::type configTxt(configTxtSEXP);
+    Rcpp::traits::input_parameter< int >::type randomSeed(randomSeedSEXP);
+    __result = Rcpp::wrap(mainRcpp(configTxt, randomSeed));
+    return __result;
+END_RCPP
+}
