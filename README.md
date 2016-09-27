@@ -9,7 +9,7 @@
 
    Note: The dynCluster.so library is for the functions to be called in R.
 
-# To build, check and the package,
+# To build, check and install the R package,
 
     Dependency:
       System packages need to be installed already: OpenMP and boost. 
@@ -50,7 +50,7 @@
         cd example
         ./../src/ZTM ./config.txt 1
 
-        or for SLURM
+        or for SLURM clusters:
 
         cd example
         sbatch skip9.slurm
@@ -65,6 +65,6 @@
         library(dynCluster)
         mainZTM("./example", comeBack=TRUE)
     
-    Note: The default value of comeBack is FALSE, meaning it will stay in the directory specified by the first parameter, instead of returning to the current directory after the job is done.
+        Note: The default value of comeBack is FALSE, meaning it will stay in the directory specified by the first parameter, instead of returning to the current directory after the job is done.
 
 
