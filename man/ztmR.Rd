@@ -17,12 +17,45 @@ ztmR(nsim = 1, maxiter = 5, eps = 0.001, numModelsM = 3, nu = 0,
 
 \item{maxiter}{max number of iteration}
 
-\item{seedOffset}{}
+\item{eps}{epsilon (not really used in the CPP code???)}
+
+\item{numModelsM}{number of models}
+
+\item{nu}{the scaling parameter for zero-trade probability}
+
+\item{OP_w_ij_inp}{mixture responsibilities}
+
+\item{years}{data years (such as 1962,1972,1982,1992,2002). Data file names are like dynamic_1962.csv}
+
+\item{numThreads}{number of threads to run parallel (OpenMP)}
+
+\item{total_mc_trials}{number of MC trials}
+
+\item{q_filename}{Q_cluster file to output Bernoulli probability for zero trade}
+
+\item{mu_filename}{MU_cluster file to output mean of the normal distribution}
+
+\item{sigmasq_filename}{SIGMA_cluster file to output variance of the normal distribution}
+
+\item{pi_filename}{PI_cluster file to output mixture probability}
+
+\item{zeta_filename}{ZETA file to output responsibilities}
+
+\item{seedOffset}{random seed offset}
 }
 \value{
 1 for error and 0 for success
 }
 \description{
 Title This is a function that calls the CPP ZTM code via a list of parameters
+}
+\examples{
+library(Rcpp)
+Sys.setenv("PKG_CXXFLAGS" = "-fopenmp -lboost_regex")
+Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
+\dontrun{sourceCpp("./src/mainRcpp.cpp")}
+\dontrun{setwd("./example")}
+\dontrun{ztm()}
+\dontrun{setwd("./..")}
 }
 

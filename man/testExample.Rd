@@ -7,12 +7,23 @@
 testExample(dataDirectory = "./", nThreads = 6, comeBack = FALSE)
 }
 \arguments{
-\item{comeBack}{}
+\item{dataDirectory}{the working directory contains the data}
+
+\item{nThreads}{number of threads}
+
+\item{comeBack}{return from the working directory}
 }
 \value{
 1 for error and 0 for success
 }
 \description{
 Title This is an example of using ztmR, assuming the required data is in the dataDirectory
+}
+\examples{
+library(Rcpp)
+Sys.setenv("PKG_CXXFLAGS" = "-fopenmp -lboost_regex")
+Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
+\dontrun{sourceCpp("./src/mainRcpp.cpp")}
+\dontrun{testExample("./example", nThreads=4, comeBack=TRUE)}
 }
 

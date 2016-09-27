@@ -7,12 +7,21 @@
 mainZTM(dataDirectory = "./", comeBack = FALSE)
 }
 \arguments{
-\item{comeBack}{}
+\item{dataDirectory}{the working directory contains the data}
+
+\item{comeBack}{return from the working directory}
 }
 \value{
 1 for error and 0 for success
 }
 \description{
 Title This is a function that calls the CPP ZTM code via a config.txt which specifies parameters and data
+}
+\examples{
+library(Rcpp)
+Sys.setenv("PKG_CXXFLAGS" = "-fopenmp -lboost_regex")
+Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
+\dontrun{sourceCpp("./src/mainRcpp.cpp")}
+\dontrun{mainZTM("./example", comeBack=TRUE)}
 }
 
