@@ -82,6 +82,10 @@ ztmR <- function(nsim = 1,
     # convert to a string of individual years
     ys <- paste(years, collapse=",")
 
+    # Assume the package is already installed
+    path <- paste0(.libPaths()[1], "/dynCluster", "/libs/dynCluster.so")
+    ztm <- Rcpp:::sourceCppFunction(function(nsim, maxiter, eps, numModelsM, nu, OP_w_ij_inp, inputYears, numThreads, total_mc_trials, q_filename, mu_filename, sigmasq_filename, pi_filename, zeta_filename, seedOffset) {}, FALSE, dyn.load(path), 'dynCluster_ztm')
+
     # make the Rcpp call
     flag = ztm(nsim, maxiter, eps, numModelsM, nu, OP_w_ij_inp, ys, numThreads, total_mc_trials,
                q_filename, mu_filename, sigmasq_filename, pi_filename, zeta_filename, seedOffset)
@@ -184,6 +188,10 @@ mainZTM <- function(dataDirectory = "./", comeBack = FALSE) {
       prevDirectory = getwd()
       setwd(dataDirectory)
     }
+
+    # Assume the package is already installed
+    path <- paste0(.libPaths()[1], "/dynCluster", "/libs/dynCluster.so")
+    mainRcpp <- Rcpp:::sourceCppFunction(function(configTxt, randomSeed) {}, FALSE, dyn.load(path), 'dynCluster_mainRcpp')
 
     # Note: in this configuration, we use the parameters in config.txt, the same way as the C++ code ZTM
     if (file.exists("config.txt")) {

@@ -26,7 +26,7 @@ OBJ2 = mainRcpp.o
 DEFAULT: ZTM dynCluster.so
 clean:
 	rm -f *.o 
-	rm -f *.so
+	rm -f *.so 
 	rm -f *~
 	rm -f core
 	rm -f ZeroTradeModel
@@ -41,4 +41,3 @@ mainRcpp.o:
 
 dynCluster.so: $(OBJS) $(OBJ2)
 	$(CXX) $(FLAGS) $(OBJS) $(OBJ2) -o dynCluster.so ${LIBS}
-	cp -f dynCluster.so ../libs/.

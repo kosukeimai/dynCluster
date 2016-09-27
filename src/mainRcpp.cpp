@@ -36,6 +36,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace std;
 using namespace boost;
 
+/* 
+ * using namespace Rcpp;
+*/
 
 bool sortFunc(pair<int, long double> p1, pair<int, long double> p2);
 
@@ -368,7 +371,7 @@ int mainRcpp(string configTxt, int randomSeed) {
 #include <Rcpp.h>
 // ztm
 int ztm(int nsim, int maxiter, long double eps, int numModelsM, long double nu, long double OP_w_ij_inp, string inputYears, int numThreads, int total_mc_trials, string q_filename, string mu_filename, string sigmasq_filename, string pi_filename, string zeta_filename, int seedOffset);
-RcppExport SEXP sourceCpp_1_ztm(SEXP nsimSEXP, SEXP maxiterSEXP, SEXP epsSEXP, SEXP numModelsMSEXP, SEXP nuSEXP, SEXP OP_w_ij_inpSEXP, SEXP inputYearsSEXP, SEXP numThreadsSEXP, SEXP total_mc_trialsSEXP, SEXP q_filenameSEXP, SEXP mu_filenameSEXP, SEXP sigmasq_filenameSEXP, SEXP pi_filenameSEXP, SEXP zeta_filenameSEXP, SEXP seedOffsetSEXP) {
+RcppExport SEXP dynCluster_ztm(SEXP nsimSEXP, SEXP maxiterSEXP, SEXP epsSEXP, SEXP numModelsMSEXP, SEXP nuSEXP, SEXP OP_w_ij_inpSEXP, SEXP inputYearsSEXP, SEXP numThreadsSEXP, SEXP total_mc_trialsSEXP, SEXP q_filenameSEXP, SEXP mu_filenameSEXP, SEXP sigmasq_filenameSEXP, SEXP pi_filenameSEXP, SEXP zeta_filenameSEXP, SEXP seedOffsetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -393,7 +396,7 @@ END_RCPP
 }
 // mainRcpp
 int mainRcpp(string configTxt, int randomSeed);
-RcppExport SEXP sourceCpp_1_mainRcpp(SEXP configTxtSEXP, SEXP randomSeedSEXP) {
+RcppExport SEXP dynCluster_mainRcpp(SEXP configTxtSEXP, SEXP randomSeedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
