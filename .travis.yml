@@ -1,6 +1,20 @@
 # Sample .travis.yml for R projects
 
-language: r
+language: r, cpp
+compiler:
+    - gcc
+os:
+    - linux
+
+addons:
+  apt:
+    sources:
+      - boost
+    packages:
+      - libboost
+      - cmake
+
+
 warnings_are_errors: false
 sudo: required
 
