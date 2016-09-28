@@ -16,7 +16,6 @@ addons:
       - boost-latest
     packages:
       - libboost
-      - cmake
 
 warnings_are_errors: false
 sudo: required
