@@ -15,7 +15,7 @@ addons:
     sources:
       - boost-latest
     packages:
-      - libboost-latest
+      - libboost
       - cmake
 
 warnings_are_errors: false
