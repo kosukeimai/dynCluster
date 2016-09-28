@@ -17,7 +17,7 @@ addons:
     packages:
     - gcc-4.8
     - g++-4.8
-    - libboost-all-dev
+    - libboost1.53-all-dev
     - cmake
 
 warnings_are_errors: false
