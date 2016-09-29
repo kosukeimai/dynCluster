@@ -1,4 +1,3 @@
-# Sample .travis.yml for R projects
 
 language: 
     - r
@@ -16,15 +15,13 @@ sudo: required
 addons:
   apt:
     sources:
-      - boost-1.53
     packages:
+      - cmake
 
 before_script:
   - sudo add-apt-repository ppa:apokluda/boost1.53
   - sudo apt-get update
   - sudo apt-get install libboost1.53-all-dev
-
-script: R CMD INSTALL .
 
 env:
  global:
@@ -34,3 +31,4 @@ notifications:
   email:
     on_success: change
     on_failure: change
+
