@@ -2,6 +2,7 @@
 
 language: 
     - r
+    - cpp
 
 compiler:
     - gcc
@@ -9,13 +10,21 @@ compiler:
 os:
     - linux
 
+warnings_are_errors: false
+sudo: required
+
+addons:
+  apt:
+    sources:
+      - boost-1.53
+    packages:
+
 before_script:
   - sudo add-apt-repository ppa:apokluda/boost1.53
   - sudo apt-get update
   - sudo apt-get install libboost1.53-all-dev
 
-warnings_are_errors: false
-sudo: required
+script: R CMD INSTALL .
 
 env:
  global:
