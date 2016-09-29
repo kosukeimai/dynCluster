@@ -2,11 +2,14 @@
 
 Dependency of this package:
 
-   * Rcpp
-   * boost/1.53.0
-   * openmpi
+    * Rcpp
+    * boost/1.53.0
+    * openmpi
 
-The code is tested and installed as it on the Princeton clusters tukey, adroit, and hecate when the openmpi and boost modules are loaded.
+The code is tested and installed as it on the Princeton clusters tukey, adroit, and hecate when the openmpi and boost modules are loaded. For example, the following UNIX commands will load the openmpi and boost modules on the Princeton clusters:
+
+    * module load openmpi/gcc/1.6.3/64
+    * module load boost/1.53.0
 
 # There are two ways to use the code, i.e. use it as CPP program, or create R functions via Rcpp.
 
