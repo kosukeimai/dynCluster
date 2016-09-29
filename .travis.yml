@@ -10,17 +10,11 @@ compiler:
 os:
     - linux
 
-addons:
-  apt:
-    sources:
-      - boost-latest
-    packages:
-      - libboost-all-dev
-      - cmake
-
 before_script:
-  - sudo apt-get update -qq
+  - sudo add-apt-repository ppa:apokluda/boost1.53
+  - sudo apt-get update
   - sudo apt-get install libboost1.53-all-dev
+  - sudo apt-get install cmake
 
 warnings_are_errors: false
 sudo: required
