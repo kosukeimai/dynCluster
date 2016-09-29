@@ -1,8 +1,6 @@
 # Sample .travis.yml for R projects
 
-language: 
-    - r
-    - cpp
+language: r
 
 compiler:
     - gcc
@@ -10,11 +8,18 @@ compiler:
 os:
     - linux
 
+before_script:
+  - sudo add-apt-repository ppa:apokluda/boost1.53
+  - sudo apt-get update
+  - sudo apt-get install libboost1.53-all-dev
+
 addons:
   apt:
     sources:
-      - boost-latest
+      - boost-1.53
     packages:
+      - libboost1.53-all-dev
+      - cmake
 
 warnings_are_errors: false
 sudo: required
