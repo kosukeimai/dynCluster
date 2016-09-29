@@ -8,8 +8,6 @@ Dependency of this package:
 
 The code is tested and installed as it on the Princeton clusters tukey, adroit, and hecate when the openmpi and boost modules are loaded.
 
-The src/Makefile automatically locates the local Rcpp library and use that. If the Rcpp is installed somewhere else, src/Makefile needs to be modified accordingly.
-
 # There are two ways to use the code, i.e. use it as CPP program, or create R functions via Rcpp.
 
 * To compile the CPP exectutable ZTM, at the UNIX/LINUX prompt:

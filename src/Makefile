@@ -9,7 +9,7 @@ all: ZTM dynCluster.so
 
 FLAGS = -O2 -fopenmp -lboost_regex
 CXXFLAGS = -DNDEBUG -fopenmp -lboost_regex -fpic -O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic
-RCPPFLAGS = -I$(shell Rscript -e "cat(paste0(.libPaths()[1],'/Rcpp/include'))") -I/usr/include/R -L/usr/lib64/R/lib -lR
+RCPPFLAGS = -I$(shell Rscript -e "cat(paste0(find.package('Rcpp'), '/include'))") -I/usr/include/R -L/usr/lib64/R/lib -lR
 
 .SUFFIXES: .o .c .cc .cpp 
 .c:
