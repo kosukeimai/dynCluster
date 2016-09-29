@@ -11,7 +11,7 @@ The code is tested and installed as it on the Princeton clusters tukey, adroit, 
     * module load openmpi/gcc/1.6.3/64
     * module load boost/1.53.0
 
-# There are two ways to use the code, i.e. use it as CPP program, or create R functions via Rcpp.
+# There are two ways to use the code, i.e. use it as a CPP program, or create R functions via Rcpp.
 
 * To compile the CPP exectutable ZTM, at the UNIX/LINUX prompt:
 
