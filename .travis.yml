@@ -35,3 +35,8 @@ notifications:
     on_success: change
     on_failure: change
 
+install:
+  - R CMD INSTALL .
+
+script: R CMD INSTALL .
+
