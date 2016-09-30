@@ -7,9 +7,6 @@ language:
 compiler:
     - gcc
 
-os:
-    - linux
-
 addons:
   apt:
     sources:
