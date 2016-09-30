@@ -19,9 +19,8 @@ addons:
       - cmake
 
 before_script:
-  - sudo add-apt-repository ppa:boost-latest/ppa
-  - sudo apt-get update 
-  - sudo apt-get install libboost1.55-all-dev
+  - sudo apt-get update -qq
+  - sudo apt-get install libboost-all-dev
 
 warnings_are_errors: false
 sudo: required
@@ -34,6 +33,4 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-script: R CMD INSTALL .
 
