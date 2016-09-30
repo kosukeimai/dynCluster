@@ -19,7 +19,6 @@ addons:
       - boost-1.53
     packages:
       - libboost1.53-all-dev
-      - cmake
 
 warnings_are_errors: false
 sudo: required
