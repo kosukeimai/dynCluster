@@ -13,7 +13,6 @@ addons:
       - boost-latest
     packages:
       - libboost-all-dev
-      - g++-4.8
       - cmake
 
 before_script:
