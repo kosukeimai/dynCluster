@@ -19,7 +19,7 @@ before_script:
   - sudo apt-get update -qq
   - sudo apt-get install libboost-all-dev
   - sudo apt-get install libc++-dev
-  - sudo apt-get install libstdc++-dev
+  - sudo apt-get install libstdc++6-4.6-dev
   - g++ --version
 
 warnings_are_errors: false
