@@ -20,6 +20,7 @@ before_script:
   - sudo apt-get install libboost-all-dev
   - sudo apt-get install libc++-dev
   - sudo apt-get install libstdc++6-4.6-dev
+  - sudo apt-get install libcr-dev mpich2 mpich2-doc
   - g++ --version
 
 warnings_are_errors: false
