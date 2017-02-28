@@ -4319,8 +4319,11 @@ transP[5][2] = 0.4;
             if(kTmpSum[z][k] == 0.0){
                 //if(muNew[z][k] != 0.0){
                     cout<<"OP_w_ij = "<<OP_w_ij<<endl;
-                    cout<<"kTmpSum["<<k<<"] = "<<kTmpSum[z][k]<<" and muNew["<<z<<"]["<<k<<"] = "<<muNew[z][k]<<" not equal to 0."<<endl;
-                    logFile<<"kTmpSum["<<k<<"] = "<<kTmpSum[z][k]<<" and muNew["<<z<<"]["<<k<<"] = "<<muNew[z][k]<<" not equal to 0."<<endl;
+		    // HJ revised the following error message 2/28/2017
+                    // cout<<"kTmpSum["<<k<<"] = "<<kTmpSum[z][k]<<" and muNew["<<z<<"]["<<k<<"] = "<<muNew[z][k]<<" not equal to 0."<<endl;
+                    // logFile<<"kTmpSum["<<k<<"] = "<<kTmpSum[z][k]<<" and muNew["<<z<<"]["<<k<<"] = "<<muNew[z][k]<<" not equal to 0."<<endl;
+                    cout << "kTmpSum[" << z << "]["<< k << "] = " << kTmpSum[z][k] << endl;
+                    logFile << "kTmpSum[" << z << "][" << k << "] = "<< kTmpSum[z][k] << endl;
                     abortFlag = 9;
                 //}
             }
@@ -4329,8 +4332,11 @@ transP[5][2] = 0.4;
     }
 
     if(abortFlag == 9){
-        cout<<"Found kTmpSum equal to 0 and corresponding muNew[z][k] not equal to 0."<<endl;
-        logFile<<"Found kTmpSum equal to 0 and corresponding muNew[z][k] not equal to 0."<<endl;
+        // HJ revised the following error message 2/28/2017
+        // cout<<"Found kTmpSum equal to 0 and corresponding muNew[z][k] not equal to 0."<<endl;
+        // logFile<<"Found kTmpSum equal to 0 and corresponding muNew[z][k] not equal to 0."<<endl;
+        cout<<"Found kTmpSum equal to 0. (hint: all 0s in some columns?)"<<endl;
+        logFile<<"Found kTmpSum equal to 0. (hint: all 0s in some columns?"<<endl;
         exit(-1);
     }
 
