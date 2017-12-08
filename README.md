@@ -93,13 +93,11 @@ library(dynCluster)
 ```
 
 3. There are two R functions that wrap and call C++ functions:
-
-(1) `mainZTM`: calls `mainRcpp` from the directory that contains the config.txt
+    * `mainZTM` calls `mainRcpp` from the directory that contains the config.txt
 ```R
 mainZTM("./example", comeBack=TRUE)
 ```
-
-(2) `testExample`: a test function that runs the toy example
+    * `testExample` is a test function that runs the toy example
 ```R
 ptm <- proc.time() # start the clock
 testExample("./example", nThreads = 4, comeBack = TRUE)
