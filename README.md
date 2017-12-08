@@ -24,7 +24,7 @@ sudo yum update
 sudo yum -y install make gcc-c++ openmpi-2.1.1 R-3.4.1
 ```
 
-4. Download [dynCluster](https://github.com/stevenliaotw/dynCluster/archive/master.zip) package and [boost/1.55.0](http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2)
+4. Download [dynCluster](https://github.com/HJ08003/dynCluster/archive/master.zip) package and [boost/1.55.0](http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2)
 
 5. Transfer downloaded files from local to AMI
 ```sh
