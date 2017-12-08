@@ -1,83 +1,114 @@
-## dynCluster: dynamic Cluster algorithm
+# dynCluster: dynamic Clustering algorithm
+
+This tutorial shows how to install and run dynCluster on [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/). For more details of the algorithm, see [Imai, Kim, Liao (2017)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf).
 
 Dependency of this package:
 
-    * Rcpp
-    * boost/1.53.0
+    * boost/1.55.0
     * openmpi
+    * Rcpp
 
-The code is tested and installed as it on the Princeton clusters (tukey, adroit, della, nobel and hecate) when the openmpi and boost modules are loaded. For example, the following UNIX commands will load the openmpi and boost modules on the Princeton clusters:
+## Installing dynCluster on Amazon Linux AMI
 
-    * module load openmpi/gcc/1.6.3/64
-    * module load boost/1.53.0
-      
-      Note: On nobel, it's boost/1.54.0. On della, it's boost/1.55.0
+1. Create an [Amazon AWS account](https://aws.amazon.com/)
 
-# There are two ways to use the code, i.e. use it as a CPP program, or create R functions via Rcpp.
+2. Log in AMI from local terminal with assigned key
+```sh
+chmod 400 ~/Dropbox/aws/key.pem
+ssh -i ~/Dropbox/aws/key.pem ec2-user@ec2...us-west-1.compute.amazonaws.com
+```
 
-* To compile the CPP exectutable ZTM, at the UNIX/LINUX prompt:
+3. Update and install dependencies
+```sh
+sudo yum update
+sudo yum -y install make gcc-c++ openmpi-2.1.1 R-3.4.1
+```
 
-   * make clean
-   * make
+4. Download [dynCluster](https://github.com/stevenliaotw/dynCluster/archive/master.zip) package and [boost/1.55.0](http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2)
 
-   Note: The dynCluster.so library is for the functions to be called in R.
+5. Transfer downloaded files from local to AMI
+```sh
+scp -i ~/Dropbox/aws/key.pem ~/Dropbox/aws/dynCluster-master.zip ec2-user@ec2...us-west-1.compute.amazonaws.com:~
+scp -i ~/Dropbox/aws/key.pem ~/Dropbox/aws/boost_1_55_0.tar.bz2  ec2-user@ec2...us-west-1.compute.amazonaws.com:~
+```
 
-# To build, check and install the R package,
+6. Unzip dynCluster
+```sh
+unzip dynCluster-master.zip
+rm dynCluster-master.zip
+```
 
-    Dependency:
-      System packages need to be installed already: OpenMP and boost. 
-      R package need to be installed: Rcpp
+7. Un-tar and build Boost
+```sh
+JOBS=`grep -c ^processor /proc/cpuinfo`
+export BOOST_VERSION="1_55_0"
+tar xf boost_${BOOST_VERSION}.tar.bz2
+cd boost_${BOOST_VERSION}
+./bootstrap.sh
+./b2 -d1 -j${JOBS} --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 --with-program_options --with-system link=shared release toolset=gcc stage
+sudo ./b2 -j${JOBS} --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 --with-program_options --with-system toolset=gcc link=shared release install
+cd ../
+```
 
-    Based on the installation, src/Makefile need to be modified accordingly to specify the compiler, the location of header files, and the libraries.
+8. Set up support for libraries installed in /usr/local/lib
+```sh
+sudo bash -c "echo '/usr/local/lib' > /etc/ld.so.conf.d/boost.conf"
+sudo ldconfig
+```
 
-    It is always a good practice to: 'make clean', and then you do the following 
+9. Install R packages
+```sh
+R
+```    
+```R    
+dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
+install.packages(c("Rcpp", "knitr"), Sys.getenv("R_LIBS_USER"), repos = "http://cran.case.edu" )
+q()
+```
 
-    R CMD build .
-    R CMD check .
-    R CMD check --as-cran .
-    R CMD INSTALL .
- 
-# Usage
-    
-    The CPP functions available are 
- 
-    (1) mainRcpp - use the parameters specified in the default file config.txt
-    (2) ztm - use the parameters provided in the function input 
+10. Build dynCluster package
+```sh
+cd ~/dynCluster-master/
+R CMD build .
+R CMD check .
+R CMD check --as-cran .
+R CMD INSTALL .
+```
 
-    Here is the R code to load the CPP functions (assume it is from the installed R library):
-      path <- paste0(.libPaths()[1], "/dynCluster", "/libs/dynCluster.so")
-      mainRcpp <- Rcpp:::sourceCppFunction(function(configTxt, randomSeed) {}, FALSE, dyn.load(path), 'dynCluster_mainRcpp')
-      ztm <- Rcpp:::sourceCppFunction(function(nsim, maxiter, eps, numModelsM, nu, OP_w_ij_inp, inputYears, numThreads, total_mc_trials, q_filename, mu_filename, sigmasq_filename, pi_filename, zeta_filename, seedOffset) {}, FALSE, dyn.load(path), 'dynCluster_ztm')
+## Running dynCluster on Amazon Linux AMI
 
-    The corresponding R wrap functions are
+This demo runs a toy example created based on [Imai, Kim, Liao (2017)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf). The smaller dataset in this example contains 4774 dyads trading 625 products in 5 separate years (1962, 1972, 1982, 1992, 2002).
 
-    (1) mainZTM - calls mainRcpp with the directory that contains the config.txt
-    (2) testExample - a test function that runs the provided ZTM examplea
+1. Go to the directory where dynCluster was installed
+```sh
+cd ~/dynCluster-master/
+```
 
-# Examples
+2. Open R and load dynCluster
+```sh
+R
+```
+```R
+library(dynCluster)
+```
 
-    Assumes that you are in the directory of dynCluster, and the package is already installed.
+3. There are two R functions that wrap and call C++ functions:
 
-    (1) Under UNIX:
+(1) `mainZTM`: calls `mainRcpp` from the directory that contains the config.txt
+```R
+mainZTM("./example", comeBack=TRUE)
+```
 
-        cd example
-        ./../src/ZTM ./config.txt 1
+(2) `testExample`: a test function that runs the toy example
+```R
+ptm <- proc.time() # start the clock
+testExample("./example", nThreads = 4, comeBack = TRUE)
+proc.time() - ptm # Stop the clock (117.269 seconds)
+```
 
-        or for SLURM clusters:
-
-        cd example
-        sbatch skip9.slurm
-
-    (2) In R:
-
-        library(dynCluster)
-        testExample("./example", nThreads=4, comeBack=TRUE)
-
-        Or,
-
-        library(dynCluster)
-        mainZTM("./example", comeBack=TRUE)
-    
-        Note: The default value of comeBack is FALSE, meaning it will stay in the directory specified by the first parameter, instead of returning to the current directory after the job is done.
+3. Download results from dynCluster
+```sh
+scp -i ~/Dropbox/aws/key.pem -r ec2-user@ec2...us-west-1.compute.amazonaws.com:~/dynCluster-master/example ~/Dropbox/aws/out-raw/
+```
 
 
