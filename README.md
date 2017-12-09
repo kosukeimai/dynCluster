@@ -1,4 +1,4 @@
-# dynCluster: dynamic Clustering algorithm
+# dynCluster: dynamic Clustering algorithm [![Build Status](https://travis-ci.org/kosukeimai/dynCluster.svg?branch=master)](https://travis-ci.org/kosukeimai/dynCluster)
 
 This tutorial shows how to install and run dynCluster on [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/). For more details of the algorithm, see [Imai, Kim, Liao (2017)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf).
 
