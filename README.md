@@ -1,8 +1,8 @@
-# dynCluster: dynamic Clustering algorithm [![Build Status](https://travis-ci.org/kosukeimai/dynCluster.svg?branch=master)](https://travis-ci.org/kosukeimai/dynCluster)
+# dynCluster: Dynamic Clustering Algorithm [![Build Status](https://travis-ci.org/kosukeimai/dynCluster.svg?branch=master)](https://travis-ci.org/kosukeimai/dynCluster)
 
 This tutorial shows how to install and run dynCluster on [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/). For more details of the algorithm, see [Imai, Kim, Liao (2017)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf).
 
-Dependency of this package:
+Dependencies of this package:
 
     * boost/1.55.0
     * openmpi
@@ -24,7 +24,7 @@ sudo yum update
 sudo yum -y install make gcc-c++ openmpi-2.1.1 R-3.4.1
 ```
 
-4. Download [dynCluster](https://github.com/HJ08003/dynCluster/archive/master.zip) package and [boost/1.55.0](http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2)
+4. Download [dynCluster](https://github.com/kosukeimai/dynCluster/archive/master.zip) package and [boost/1.55.0](http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2)
 
 5. Transfer downloaded files from local to AMI
 ```sh
@@ -63,6 +63,8 @@ R
 ```R    
 dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
 install.packages(c("Rcpp", "knitr"), Sys.getenv("R_LIBS_USER"), repos = "http://cran.case.edu" )
+```
+```sh
 q()
 ```
 
@@ -104,7 +106,7 @@ testExample("./example", nThreads = 4, comeBack = TRUE)
 proc.time() - ptm # Stop the clock (117.269 seconds)
 ```
 
-3. Download results from dynCluster
+4. Download results from dynCluster
 ```sh
 scp -i ~/Dropbox/aws/key.pem -r ec2-user@ec2...us-west-1.compute.amazonaws.com:~/dynCluster-master/example ~/Dropbox/aws/out-raw/
 ```
