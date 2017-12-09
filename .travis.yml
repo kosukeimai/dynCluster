@@ -1,0 +1,37 @@
+# Sample .travis.yml for R projects
+
+language: 
+    - r
+    - cpp
+
+compiler:
+    - g++
+
+addons:
+  apt:
+    sources:
+      - boost-latest
+    packages:
+      - libboost-all-dev
+      - cmake
+
+before_script:
+  - sudo apt-get update -qq
+  - sudo apt-get install libboost-all-dev
+  - sudo apt-get install libc++-dev
+  - sudo apt-get install libstdc++6-4.6-dev
+  - sudo apt-get install libcr-dev mpich2 mpich2-doc
+  - g++ --version
+
+warnings_are_errors: false
+sudo: required
+
+env:
+ global:
+   - CRAN: http://cran.rstudio.com
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
