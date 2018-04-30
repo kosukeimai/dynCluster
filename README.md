@@ -1,6 +1,6 @@
 # dynCluster: Dynamic Clustering Algorithm [![Build Status](https://travis-ci.org/kosukeimai/dynCluster.svg?branch=master)](https://travis-ci.org/kosukeimai/dynCluster)
 
-This tutorial shows how to install and run dynCluster on [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/). For more details of the algorithm, see [Imai, Kim, Liao (2018)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf).
+This tutorial demonstrates how to install and run dynCluster on [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/). For more details of the algorithm, see [Imai, Kim, Liao (2018)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf).
 
 Dependencies of this package:
 
@@ -14,10 +14,10 @@ Dependencies of this package:
 
 2. Launch an Amazon Machine Image (AMI) Instance
 
- + Choose instance type "Amazon Linux AMI"
- + Choose instance with sufficient CPU, memory, storage, etc. depending on data size
+ + Choose instance type *Amazon Linux AMI*
+ + Choose instance with sufficient CPU, memory, storage, etc., depending on the size of your dataset
 
-3. Log in AMI from local terminal with assigned key (e.g., `~/PATH/KEY.pem`) and instance's public DNS (`ec2-user@ec2...compute.amazonaws.com`)
+3. Log in AMI from local terminal with assigned key (e.g., `~/PATH/KEY.pem`) and the instance's public DNS (`ec2-user@ec2...compute.amazonaws.com`)
 ```sh
 chmod 400 ~/Dropbox/aws/KEY.pem
 ssh -i ~/Dropbox/aws/KEY.pem ec2-user@ec2...compute.amazonaws.com
@@ -29,7 +29,7 @@ sudo yum update
 sudo yum -y install make gcc-c++ openmpi-2.1.1 R-3.4.1
 ```
 
-5. Download [dynCluster](https://github.com/kosukeimai/dynCluster/archive/master.zip) package and [boost/1.55.0](http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2)
+5. Download the [dynCluster](https://github.com/kosukeimai/dynCluster/archive/master.zip) package and [boost/1.55.0](http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2)
 
 6. Transfer downloaded files from local to AMI
 ```sh
@@ -84,7 +84,7 @@ R CMD INSTALL .
 
 ## Running dynCluster on Amazon Linux AMI
 
-This demo runs a toy example created based on [Imai, Kim, Liao (2017)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf). The smaller dataset in this example contains 4774 dyads trading 625 products in 5 separate years (1962, 1972, 1982, 1992, 2002).
+This demo runs a toy example created based on [Imai, Kim, Liao (2018)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf). The smaller dataset in this example contains 4774 dyads trading 625 products in 5 separate years (1962, 1972, 1982, 1992, 2002).
 
 1. Go to the directory where dynCluster was installed
 ```sh
@@ -116,7 +116,7 @@ proc.time() - ptm # Stop the clock (117.269 seconds)
         - Increase number of CPU cores (*threads*)
         - Increase max number of iterations (*MAXITER*)
 
-4. Download results from dynCluster
+4. Download results from dynCluster for further analyses
 ```sh
 scp -i ~/Dropbox/aws/KEY.pem -r ec2-user@ec2...compute.amazonaws.com:~/dynCluster-master/example ~/Dropbox/aws/output/
 ```
