@@ -100,21 +100,21 @@ library(dynCluster)
 ```
 
 3. There are two R functions that wrap and call C++ functions:
-    * `mainZTM` calls `mainRcpp` from the directory that contains the `config.txt`
+ + `mainZTM` calls `mainRcpp` from the directory that contains the `config.txt`
 ```R
 mainZTM("./example", comeBack=TRUE)
 ```
-    * `testExample` is a test function that runs the toy example
+ + `testExample` is a test function that runs the toy example
 ```R
 ptm <- proc.time() # start the clock
 testExample("./example", nThreads = 4, comeBack = TRUE)
 proc.time() - ptm # Stop the clock (117.269 seconds)
 ```
-    * Adjust `config.txt`as needed
-        - Set the number of clusters (*Z*)
-        - Set names of input files (*file*)
-        - Increase number of CPU cores (*threads*)
-        - Increase max number of iterations (*MAXITER*)
+ + Adjust `config.txt`as needed
+    - Set the number of clusters (*Z*)
+    - Set names of input files (*file*)
+    - Increase number of CPU cores (*threads*)
+    - Increase max number of iterations (*MAXITER*)
 
 4. Download results from dynCluster for further analyses
 ```sh
