@@ -1,6 +1,6 @@
 # dynCluster: Dynamic Clustering Algorithm [![Build Status](https://travis-ci.org/kosukeimai/dynCluster.svg?branch=master)](https://travis-ci.org/kosukeimai/dynCluster)
 
-This tutorial demonstrates how to install and run dynCluster on [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/). For more details of the algorithm, see [Imai, Kim, Liao (2018)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf).
+This tutorial demonstrates how to install and run dynCluster on [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/). For more details of the algorithm, see [Kim, Liao, Imai (2018)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf).
 
 Dependencies of this package:
 
@@ -84,7 +84,7 @@ R CMD INSTALL .
 
 ## Running dynCluster on Amazon Linux AMI
 
-This demo runs a toy example created based on [Imai, Kim, Liao (2018)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf). The smaller dataset in this example contains 4774 dyads trading 625 products in 5 separate years (1962, 1972, 1982, 1992, 2002).
+This demo runs a toy example created based on [Kim, Liao, Imai (2018)](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf). The smaller dataset in this example contains 4774 dyads trading 625 products in 5 separate years (1962, 1972, 1982, 1992, 2002).
 
 1. Go to the directory where dynCluster was installed
 ```sh
