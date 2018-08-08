@@ -120,7 +120,7 @@ For more details of the method and applications, see our paper:
         df <- rbind(df.1, df.2) %>% 
           arrange(dyad)
         
-        # view data  
+        # view first 10 rows of the data  
         head(df, 10)
         ##   cty1 cty2 dyad z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
         ## 1    1   10 1_10  2  2  2  2  2  2  2  2  2   2
