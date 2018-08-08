@@ -11,7 +11,7 @@ For more details of the method and applications, see our paper:
 
 2. Once dynCluster is installed, the R code below creates a small simulated dataset that follows the data generating process described in our paper. The toy example runs on **t2.micro** instances on AWS, which is available as a [free tier](https://aws.amazon.com/free/).
   
-    + Set up: `10` countries (`90` dyads) trading `40` products over `10` time periods. Dyads belong to `3` different clusters.
+    + Set up: `10` countries (`90` directed-dyads) trading `40` products over `10` time periods. Dyads belong to `3` different clusters.
         ```R
         # set clean slate
         rm(list = ls())
