@@ -145,7 +145,7 @@ For more details of the method and applications, see our paper:
         }
         ```
         
-      + Simulate dyadic product-level trade data using the cluster membership data above.
+     + Simulate dyadic product-level trade data using the cluster membership data above.
         ```R
         # 1. set q_{kz}
         Q <- matrix(NA, nrow = K, ncol = M)
