@@ -246,6 +246,10 @@ For more details of the method and applications, see our paper:
         ```
     + In R, run the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
         ```R
+        # load library
+        library(dynCluster)
+        
+        # run and time dynCluster
         ptm <- proc.time() # start the clock
         mainZTM("./sim-25", comeBack=TRUE)
         proc.time() - ptm # stop the clock
