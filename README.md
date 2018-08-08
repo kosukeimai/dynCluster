@@ -6,9 +6,7 @@ For more details of the method and applications, see our paper:
 
 + [Measuring Trade Profile with Granular Product-level Trade Data](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf)
 
---------------------------------------------------------------------------------
-
-### Running dynCluster on Amazon Web Services: A Toy Example
+## Running dynCluster on Amazon Web Services: A Toy Example
 1. Install dynCluster on [Amazon Web Services (AWS)](https://aws.amazon.com/). See our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki) for step-by-step instructions.
 
 2. Once dynCluster is installed, the R code below creates a small simulated dataset that follows the data generating process described in our paper. The toy example runs on *t2.micro* AWS instances, which is free.
@@ -254,9 +252,7 @@ For more details of the method and applications, see our paper:
         ```
     + Results will be saved to the same folder
 
---------------------------------------------------------------------------------
-
-### Assessing the Performance of dynCluster using the Toy Example
+## Assessing the Performance of dynCluster using the Toy Example
 1. Set up parameters in R
     ```R
     # clean slate
