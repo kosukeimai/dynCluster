@@ -242,7 +242,7 @@ For more details of the method and applications, see our paper:
 4. To run dynCluster,
     + Copy `config.txt` to the folder containing the simulated data and adjust the parameters as needed.
         ```sh
-        cp ~/dynCluster-master/example/config.txt ~/dynCluster-master/sim-25
+        cp ~/dynCluster-master/example/toy/config.txt ~/dynCluster-master/sim-25
         ```
     + In R, run the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
         ```R
