@@ -9,7 +9,7 @@ For more details of the method and applications, see our paper:
 ## Running dynCluster on Amazon Web Services: A Toy Example
 1. Install dynCluster on [Amazon Web Services (AWS)](https://aws.amazon.com/). See our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki) for step-by-step instructions.
 
-2. Once dynCluster is installed, the R code below creates a small simulated dataset that follows the data generating process described in our paper. The toy example runs on *t2.micro* AWS instances, which is free.
+2. Once dynCluster is installed, the R code below creates a small simulated dataset that follows the data generating process described in our paper. The toy example runs on AWS **t2.micro** instances which is available as a [free tier](https://aws.amazon.com/free/).
   
     + Set up: `10` countries (`90` dyads) trading `40` products over `10` time periods. Dyads belong to `3` different clusters.
         ```R
