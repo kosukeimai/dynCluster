@@ -538,7 +538,7 @@ For more details of the method and applications, see our paper:
     # 3 rows (one for each cluster)
     # 80 total columns (40 products*2 directions)
     # note that proportions for each row should sum up to 2 
-    # view data first 5 columns of the data
+    # view first 5 columns of the data
     newtf[,1:5]
     ##      SITC0_1     SITC0_2      SITC0_3    SITC0_4    SITC0_5
     ## 1 0.02104624 0.008787409 0.0007205318 0.00000000 0.09258156
@@ -644,7 +644,7 @@ For more details of the method and applications, see our paper:
     # 3 rows (one for each cluster)
     # 80 total columns (40 products*2 directions)
     # note that proportions for each row should sum up to 2 
-    # view data first 5 columns of the data
+    # view first 5 columns of the data
     tf.truth[,1:5]
     ##      SITC0_1    SITC0_2      SITC0_3    SITC0_4    SITC0_5
     ## 1 0.01255561 0.01115383 0.0008767924 0.01262706 0.06585254
