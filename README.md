@@ -231,13 +231,13 @@ For more details of the method and applications, see our paper:
       + `file`: the names of the input files excluding "dynamic_", e.g., 1961, 1962, ..., 1970
       + `threads`: the number of threads to run parallel (OpenMP)
       + `MCITERATIONS`: the number of MC iterations
-      + `QFILE`: Q_cluster file to output Bernoulli probability for zero trade
-      + `MUFILE`: MU_cluster file to output the mean of the normal distribution
-      + `SIGMAQFILE`: SIGMA_cluster file to output variance of the normal distribution
-      + `PIEFILE`: PI_cluster file to output mixture probability
-      + `ZETAFILE`: ZETA file to output mixture responsibilities
-      + `TFFILE`: 
-      + `PMATFILE`:
+      + `QFILE`: output file for the Bernoulli probabilities for zero trade
+      + `MUFILE`: output file for the mean of the normal distribution
+      + `SIGMAQFILE`: output file for the variance of the normal distribution
+      + `PIEFILE`: output file for mixture probabilities
+      + `ZETAFILE`: output file for mixture responsibilities
+      + `TFFILE`: output file for cluster trade proportions
+      + `PMATFILE`: output file for cluster transition probabilities
 
 4. To run dynCluster,
     + Copy `config.txt` to the folder containing the simulated data and adjust the parameters as needed.
