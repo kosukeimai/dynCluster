@@ -22,7 +22,7 @@ For more details of the method and applications, see our paper:
     ## ...
     ```
 
-    + Each dyad belongs to 1 of `3` different clusters in a given time period.
+    + For each time period, dyads belong to 1 of `3` different clusters.
     ```
     ##   cty1 cty2 dyad z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
     ## 1    1   10 1_10  2  2  2  2  2  2  2  2  2   2
@@ -38,9 +38,9 @@ For more details of the method and applications, see our paper:
     ## ...
     ```
 
-    + The ultimate goal is to see how well dynCluster can recover the three true clusters as well as the dyadic cluster membership.
+    + The ultimate goal is to see how well dynCluster can recover the three true clusters and the dyadic cluster membership.
 
-3. Adjust the simulation parameters in `config.txt` and copy the file to the same folder containing the simulated data.
+3. Adjust the simulation parameters in `/example/toy/config.txt` and copy the file to the same folder containing the simulated data.
 
     ![](https://github.com/kosukeimai/dynCluster/blob/master/images/config.png)
 
@@ -76,7 +76,7 @@ For more details of the method and applications, see our paper:
     ```
   + Note that this toy example runs on **t2.micro** instances on AWS, which is available as a [free tier](https://aws.amazon.com/free/).
 
-5. To assess the performace of dynCluster, we created product-trade heatmaps based on the "true" cluster membership data above and the estimated dyadic cluster membership from dynCluster. 
+5. To assess the performace of dynCluster, we created product-trade heatmaps based on the "true" cluster membership data above and the estimated output from dynCluster. 
 
     + A side-by-side comparison of the two heatmaps show that the composition of product trade is very similar. This suggests that dynCluster did well in recovering the original clusters.
 
