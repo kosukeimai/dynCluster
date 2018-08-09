@@ -63,7 +63,7 @@ For more details of the method and applications, see our paper:
     + The table below cross-tabulates the true and estimated cluster membership for each dyad. The cells in the diagonal show the number of dyad-periods correctly classified. Overall, dynCluster correctly recovered **98.4%** of the true dyadic cluster memberships.
 
         |          |           |             | **Estimated**     |             |
-        |----------|-----------|-------------|-------------------|-------------|
+        |----------|-----------|------------:|------------------:|------------:|
         |          |           | Cluster 1   | Cluster 2         | Cluster 3   |
         |          | Cluster 1 | 334         | 0                 | 0           |
         | **True** | Cluster 2 | 2           | 374               | 12          |
