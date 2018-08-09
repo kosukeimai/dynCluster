@@ -7,9 +7,9 @@ For more details of the method and applications, see our paper:
 + [Measuring Trade Profile with Granular Product-level Trade Data](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf)
 
 ## dynCluster on Amazon Web Services: A Toy Example
-1. We installed dynCluster on [Amazon Web Services (AWS)](https://aws.amazon.com/). See our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-install-dynCluster-on-AWS) for step-by-step instructions.
+1. Install dynCluster on [Amazon Web Services (AWS)](https://aws.amazon.com/). See our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-install-dynCluster-on-AWS) for step-by-step instructions.
 
-2. Once dynCluster was installed, we created a small simulated dataset following the data generating process described in our paper. For detailed code, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
+2. Once dynCluster was installed, we created a small simulated dataset following the data generating process described in our paper. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
 
     + The data covers `10` countries (`90` directed-dyads) trading `40` products over `10` time periods.
     ```
@@ -22,7 +22,7 @@ For more details of the method and applications, see our paper:
     ## ...
     ```
 
-    + For each time period, dyads belong to 1 of `3` different clusters, which represent the "true" dyadic cluster membership.
+    + For each time period, dyads belong to `3` different clusters. Together, the data represent the "true" dyadic cluster memberships.
     ```
     ##   cty1 cty2 dyad z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
     ## 1    1   10 1_10  2  2  2  2  2  2  2  2  2   2
@@ -50,14 +50,14 @@ For more details of the method and applications, see our paper:
     mainZTM("./sim-25", comeBack=TRUE)
     proc.time() - ptm # stop the clock
     ```
-  + Note that this toy example runs on **t2.micro** instances on AWS, which is available as a [free tier](https://aws.amazon.com/free/).
+  + Note that this toy example runs on **t2.micro** instances in AWS, which is available as a [free tier](https://aws.amazon.com/free/).
 
-5. To assess the performace of dynCluster, we created product-trade heatmaps based on the "true" cluster membership data above and the estimated output from dynCluster. 
+5. To assess the performance of dynCluster, we created product-trade heatmaps based on the "true" cluster membership data above and the estimated output from dynCluster. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
 
-    + A side-by-side comparison of the two heatmaps show that the composition of product trade is very similar. This suggests that dynCluster did well in recovering the original clusters.
+    + A side-by-side comparison of the two heatmaps below show that the composition of product trade is very similar. This suggests that dynCluster did well in recovering the original clusters.
 
-        True Product Proportion             |  Estimated Product Proportion
-        :-------------------------:|:-------------------------:
+        True Product Proportion                    |  Estimated Product Proportion
+        :-----------------------------------------:|:----------------------------:
         ![](images/TF_heatmap_demeaned_truth.png)  |  ![Estimated](images/TF_heatmap_demeaned_est.png)
 
     + The table below cross-tabulates the true vs. estimated cluster membership for each dyad-period. The cells in the diagonal show the number of dyad-periods correctly classified. Overall, dynCluster correctly recovered **98.4%** of the true dyadic cluster memberships.
