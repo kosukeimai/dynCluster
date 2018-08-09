@@ -60,7 +60,7 @@ For more details of the method and applications, see our paper:
         :-------------------------:|:-------------------------:
         ![](images/TF_heatmap_demeaned_truth.png)  |  ![Estimated](images/TF_heatmap_demeaned_est.png)
 
-    + The table below cross-tabulates the true and estimated cluster membership for each dyad. The cells in the diagonal show the number of dyads correctly classified. Overall, dynCluster correctly recovered **98.4%** of the true dyadic cluster memberships.
+    + The table below cross-tabulates the true and estimated cluster membership for each dyad. The cells in the diagonal show the number of dyad-periods correctly classified. Overall, dynCluster correctly recovered **98.4%** of the true dyadic cluster memberships.
 
         |          |           |             | **Estimated**     |             |
         |----------|-----------|-------------|-------------------|-------------|
