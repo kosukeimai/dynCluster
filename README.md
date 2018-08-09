@@ -47,12 +47,12 @@ For more details of the method and applications, see our paper:
         
     # run and time dynCluster
     ptm <- proc.time() # start the clock
-    mainZTM("./sim-25", comeBack=TRUE)
+    mainZTM("./sim-1", comeBack=TRUE)
     proc.time() - ptm # stop the clock
     ```
   + Note that this toy example runs on **t2.micro** instances in AWS, which is available as a [free tier](https://aws.amazon.com/free/).
 
-5. To assess the performance of dynCluster, we created product-trade heatmaps based on the "true" cluster membership data above and the estimated output from dynCluster. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
+4. To assess the performance of dynCluster, we created product-trade heatmaps based on the "true" cluster membership data above and the estimated output from dynCluster. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
 
     + A side-by-side comparison of the two heatmaps below show that the composition of product trade is very similar. This suggests that dynCluster did well in recovering the original clusters.
 
