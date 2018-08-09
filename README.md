@@ -6,255 +6,36 @@ For more details of the method and applications, see our paper:
 
 + [Measuring Trade Profile with Granular Product-level Trade Data](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf)
 
-## Running dynCluster on Amazon Web Services: A Toy Example
-1. Install dynCluster on [Amazon Web Services (AWS)](https://aws.amazon.com/). See our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki) for step-by-step instructions.
+## dynCluster on Amazon Web Services: A Toy Example
+1. Install dynCluster on [Amazon Web Services (AWS)](https://aws.amazon.com/). See our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-install-dynCluster-on-AWS) for step-by-step instructions.
 
-2. Once dynCluster is installed, the R code below creates a small simulated dataset that follows the data generating process described in our paper. The toy example runs on **t2.micro** instances on AWS, which is available as a [free tier](https://aws.amazon.com/free/).
+2. Once dynCluster is installed, we created a small simulated dataset following the data generating process described in our paper. For detailed code, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
+
++ The setup: 
+  + `10` countries (`90` directed-dyads) trading `40` products over `10` time periods. 
+  + Each dyad belongs to 1 of `3` different clusters in a given time period.
   
-    + Set up: `10` countries (`90` directed-dyads) trading `40` products over `10` time periods. Dyads belong to `3` different clusters.
-        ```R
-        # set clean slate
-        rm(list = ls())
-        date()
-        
-        # load packages
-        pkg <- c("foreign", "dplyr", "ggplot2", "stringr", "tidyr", "purrr", 
-             "RColorBrewer", "plotrix")
-        install.packages(pkg, Sys.getenv("R_LIBS_USER"), repos = "http://cran.case.edu")
-        lapply(pkg, require, character.only = TRUE)
-        
-        # set simulation ID number
-        sim.id <- 25
-        
-        # set file directories
-        MAIN_DIR <- "~/dynCluster-master"
-        SIM_INPUT <- paste(MAIN_DIR, "/sim-", sim.id, sep = "")
-        
-        # set seed
-        set.seed(1234)
-        
-        # set constants
-        N <- 10 # number of units
-        T <- 10 # number of time periods
-        M <- 3 # number of clusters
-        K <- 40 # number of products
-        ndyads <- choose(N, 2)*2 # number of dyads
-        
-        # set M by M transition matrix 
-        # where (i,j)th element specifies the probabilty that a dyad in 
-        # cluster i in time t-1 will move to cluster j in time t (each 
-        # row of this matrix should sum up to 1)
-        P <- diag(.85, M)
-        transition <- 0.15/(M-1)
-        P[P!=.85] <- transition
-        
-        # function to simulate Markov transitions
-        run.sim <- function(P, num.periods = T, first.cluster = 1) {
-          
-          # number of possible clusters
-          num.clusters <- nrow(P)
-          
-          # stores the clusters Z_t through time
-          clusters <- numeric(num.periods)
-          
-          # initialize variable for first state 
-          clusters[1] <- first.cluster
-          
-          for(t in 2:num.periods) {
-            
-            # probability vector to simulate next state X_{t+1}
-            p <- P[clusters[t-1], ]
-            
-            ## draw from multinomial and determine state
-            clusters[t] <-  which(rmultinom(n = 1, size = 1, p) == 1)
-          }
-          return(clusters)
-        }
-        ```
-    + Create dyadic cluster membership data, i.e., the cluster assignment of each dyad for each time period. The ultimate goal of this toy example is to see how well dynCluster can recover the true cluster membership data.
-        ```R
-        # create dyad-time indices
-        data <- expand.grid(cty1 = seq(1:N), 
-                            cty2 = seq(1:N), 
-                            time = seq(1,T))
-        
-        data <- data %>% 
-          filter(cty1 != cty2) %>% # drop rows with cty1 == cty2
-          mutate(dyad = ifelse(as.numeric(cty1) < as.numeric(cty2), # create dyad ID
-                               paste(cty1, cty2, sep = "_"), 
-                               paste(cty2, cty1, sep = "_"))) %>%
-          arrange(time, cty1, cty2) # sort
-        
-        # extract dyads from the first period and initiate their cluster membership
-        d1 <- data %>%
-          filter(time == 1) %>%
-          distinct(dyad, .keep_all = TRUE) %>%
-          mutate(z1 = sample(1:M, ndyads/2, replace = TRUE))
-        
-        # simulate cluster membership for T transitions
-        trans.list <- list()
-        for(i in 1:nrow(d1)){
-          sim.out <- run.sim(P, T, d1$z1[i])
-          trans.list[[i]] <- sim.out # add it to list
-        }
-        
-        # combine into a dataframe
-        trans.df <- do.call(rbind, trans.list)
-        
-        # add time labels
-        colnames(trans.df) <- paste("z", seq(1:T), sep = "")
-        
-        # combine dyads and cluster membership info
-        df.1 <- cbind(d1 %>% select(-z1, -time), trans.df)
-        
-        # create similar df but flipping the direction of dyads
-        df.2 <- cbind(df.1$cty2, df.1$cty1, df.1)
-        df.2 <- df.2 %>%
-          select(-cty1, -cty2) %>%
-          rename(cty1 = `df.1$cty2`,
-                 cty2 = `df.1$cty1`)
-        
-        # stack dfs to get the full directed-dyad cluster membership data
-        # each row contains one directed-dyad and its cluster membership in each period
-        # colnames: cty1, cty2, dyad, z1, z2, ..., z_t
-        df <- rbind(df.1, df.2) %>% 
-          arrange(dyad)
-        
-        # view first 10 rows of the data  
-        head(df, 10)
-        ##   cty1 cty2 dyad z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
-        ## 1    1   10 1_10  2  2  2  2  2  2  2  2  2   2
-        ## 2   10    1 1_10  2  2  2  2  2  2  2  2  2   2
-        ## 3    1    2  1_2  1  1  1  1  1  1  1  1  1   1
-        ## 4    2    1  1_2  1  1  1  1  1  1  1  1  1   1
-        ## 5    1    3  1_3  2  2  2  2  2  2  2  2  2   2
-        ## 6    3    1  1_3  2  2  2  2  2  2  2  2  2   2
-        ## 7    1    4  1_4  2  2  2  2  2  1  1  1  1   1
-        ## 8    4    1  1_4  2  2  2  2  2  1  1  1  1   1
-        ## 9    1    5  1_5  2  2  2  2  2  2  2  2  2   2
-        ## 10   5    1  1_5  2  2  2  2  2  2  2  2  2   2
-          
-        # write/save data
-        if (!dir.exists(SIM_INPUT)){
-          print("Directory does not exist! Creating...")
-          dir.create(SIM_INPUT)
-          write.csv(df, paste(SIM_INPUT, "/truth.csv", sep = ""), row.names = FALSE)
-          
-        } else {
-          write.csv(df, paste(SIM_INPUT, "/truth.csv", sep = ""), row.names = FALSE)
-        }
-        ```
-        
-     + Simulate dyadic product-level trade data using the cluster membership data above.
-        ```R
-        # 1. set q_{kz}
-        Q <- matrix(NA, nrow = K, ncol = M)
-        Q[,1] <- runif(K, min=0.8, max=1) # cluster 1 is sparse trade
-        Q[,2] <- runif(K, min=0.5, max=0.8)
-        Q[,3] <- runif(K, min=0, max=0.2)
-        
-        # 2. set mu_{kz}
-        MU <- matrix(NA, nrow = K, ncol = M)
-        MU[,1] <- runif(K, min=100, max=1000)
-        MU[,2] <- runif(K, min=900, max=700000)
-        MU[,3] <- runif(K, min=300000, max=10000000)
-        
-        # generate product-trade for each directed dyad
-        X <- matrix(NA, nrow = nrow(data), ncol = K)
-        
-        for(i in 1:nrow(data)){
-            cty1 <- data$cty1[i]
-            cty2 <- data$cty2[i]
-            time <- data$time[i]
-        
-            #for(t in 1:T){
-                idx <- which(df$cty1 == cty1 & df$cty2 == cty2)
-                z_ijt <- df[idx,time+3] # extract cluster for given period 
-            #}
-        
-            X_ijtk <- rep(NA, length=K)
-            for(k in 1:K){
-                q_kz <- Q[k,z_ijt]
-                D_ijtk <- rbinom(1, 1, prob = q_kz)
-                if(D_ijtk == 0){ # positive trade
-                    W_ijtk <- max(100, rnorm(1,MU[k,z_ijt], 100))
-                    X_ijtk[k] <- W_ijtk
-                } else {
-                    X_ijtk[k] <- 0
-                }
-            }
-            X[i,] <- X_ijtk
-        
-        }
-        
-        # combine dyad, time, and trade data
-        data <- cbind(data, X)
-        
-        # reorder vars
-        data.trade <- data %>% 
-          select(time, cty1, cty2, everything()) %>%
-          select(-dyad)
-          #select(time, cty1, cty2, `1`:`20`)
-        
-        # change var names (package very picky about names)
-        prods <- paste("SITC0_", 1:K, sep="")
-        colnames(data.trade) <- c("year", "importer_ISO", "exporter_ISO", prods)
-        
-        # view first 5 rows and 10 columns of data
-        data.trade[1:5, 1:10]
-        ##   year importer_ISO exporter_ISO SITC0_1 SITC0_2 SITC0_3  SITC0_4 SITC0_5      SITC0_6   SITC0_7
-        ## 1    1            1            2       0       0       0      0.0       0     177.0528       0.0
-        ## 2    1            1            3       0       0       0 664344.6       0  536712.5031  133149.7
-        ## 3    1            1            4       0       0       0      0.0       0  536385.8453       0.0
-        ## 4    1            1            5  372390       0       0      0.0       0  536450.8843       0.0
-        ## 5    1            1            6 3171746 2797487 4872051 981809.8 2497946 1412988.9059 1075698.3
-        
-        # write/save data by time period (1961, 1962, ..., 1970)
-        for(t in 1:T){
-          sub <- data.trade[data.trade$year == t,]
-          filename <- paste(SIM_INPUT, "/dynamic_", as.character(1960+t), ".csv", sep="")
-          write.table(sub, filename, sep ="\t", row.names = FALSE, quote= FALSE)
-        }
-        ```
-      + Note that users can replace these files (`dynamic_1961.csv`, `dynamic_1962.csv`, ..., `dynamic_1970.csv`) with their own data in real applications. However, file names and format need to be exactly the same in the current version for dynCluster to work. For example, file names need to begin with `dynamic_` and column names need to start with `SITC0_` (4 characters + 1 integer + underscore).
++ The goal:
+  + To see how well dynCluster can recover the true clusters as well as dyadic cluster membership.
 
-3. Besides the dyadic trade data, dynCluster also requires `config.txt` to run. The file contains the parameters used in the simulation.
++ Note that this toy example runs on **t2.micro** instances on AWS, which is available as a [free tier](https://aws.amazon.com/free/).
 
-    ![](images/config.png)
-
-      + `NSIM`: the number of simulation. Each simulation will use different starting values. The final output will select the simulation that yields the highest log-likelihood.
-      + `MAXITER`: the max number of iterations
-      + `EPS`: the epsilon for convergence
-      + `Z`: the number of clusters
-      + `NU`: the scaling parameter for zero-trade probability
-      + `OP_w_ij`: the mixture responsibilities
-      + `file`: the names of the input files excluding "dynamic_", e.g., 1961, 1962, ..., 1970
-      + `threads`: the number of threads to run parallel (OpenMP)
-      + `MCITERATIONS`: the number of MC iterations
-      + `QFILE`: output file for the Bernoulli probabilities for zero trade
-      + `MUFILE`: output file for the mean of the normal distribution
-      + `SIGMAQFILE`: output file for the variance of the normal distribution
-      + `PIEFILE`: output file for mixture probabilities
-      + `ZETAFILE`: output file for mixture responsibilities
-      + `TFFILE`: output file for cluster trade proportions
-      + `PMATFILE`: output file for cluster transition probabilities
-
-4. To run dynCluster,
-    + Copy `config.txt` to the folder containing the simulated data and adjust the parameters as needed.
-        ```sh
-        cp ~/dynCluster-master/example/toy/config.txt ~/dynCluster-master/sim-25
-        ```
-    + In R, run the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
-        ```R
-        # load library
-        library(dynCluster)
+3. Run dynCluster,
++ Copy `config.txt` to the folder containing the simulated data and adjust the parameters as needed.
+    ```sh
+    cp ~/dynCluster-master/example/toy/config.txt ~/dynCluster-master/sim-25
+    ```
++ In R, run the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
+    ```R
+    # load library
+    library(dynCluster)
         
-        # run and time dynCluster
-        ptm <- proc.time() # start the clock
-        mainZTM("./sim-25", comeBack=TRUE)
-        proc.time() - ptm # stop the clock
-        ```
-    + Results will be saved to the same folder
+    # run and time dynCluster
+    ptm <- proc.time() # start the clock
+    mainZTM("./sim-25", comeBack=TRUE)
+    proc.time() - ptm # stop the clock
+    ```
++ Results will be saved to the same folder
 
 ## Assessing the Performance of dynCluster using the Toy Example
 1. Set up parameters in R
