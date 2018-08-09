@@ -11,21 +11,34 @@ For more details of the method and applications, see our paper:
 
 2. Once dynCluster is installed, we created a small simulated dataset following the data generating process described in our paper. For detailed code, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
 
-+ The setup: 
-  + `10` countries (`90` directed-dyads) trading `40` products over `10` time periods. 
-  + Each dyad belongs to 1 of `3` different clusters in a given time period.
++ The setup: `10` countries (`90` directed-dyads) trading `40` products over `10` time periods. Each dyad belongs to 1 of `3` different clusters in a given time period.
   
-+ The goal:
-  + To see how well dynCluster can recover the true clusters as well as dyadic cluster membership.
++ The goal: to see how well dynCluster can recover the three true clusters as well as the dyadic cluster membership.
 
 + Note that this toy example runs on **t2.micro** instances on AWS, which is available as a [free tier](https://aws.amazon.com/free/).
 
-3. Run dynCluster,
-+ Copy `config.txt` to the folder containing the simulated data and adjust the parameters as needed.
-    ```sh
-    cp ~/dynCluster-master/example/toy/config.txt ~/dynCluster-master/sim-25
-    ```
-+ In R, run the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
+3. Adjust the simulation parameters in `config.txt` and copy the file to the same folder containing the simulated data.
+
+    ![](https://github.com/kosukeimai/dynCluster/blob/master/images/config.png)
+
+  + `NSIM`: the number of simulation. Each simulation will use different starting values. The final output will select the simulation that yields the highest log-likelihood.
+  + `MAXITER`: the max number of iterations
+  + `EPS`: the epsilon for convergence
+  + `Z`: the number of clusters
+  + `NU`: the scaling parameter for zero-trade probability
+  + `OP_w_ij`: the mixture responsibilities
+  + `file`: the names of the input files excluding "dynamic_", e.g., 1961, 1962, ..., 1970
+  + `threads`: the number of threads to run parallel (OpenMP)
+  + `MCITERATIONS`: the number of MC iterations
+  + `QFILE`: output file for the Bernoulli probabilities for zero trade
+  + `MUFILE`: output file for the mean of the normal distribution
+  + `SIGMAQFILE`: output file for the variance of the normal distribution
+  + `PIEFILE`: output file for mixture probabilities
+  + `ZETAFILE`: output file for mixture responsibilities
+  + `TFFILE`: output file for cluster trade proportions (non-weighted by time)
+  + `PMATFILE`: output file for cluster transition probabilities
+
+4. In R, run the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
     ```R
     # load library
     library(dynCluster)
