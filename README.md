@@ -11,9 +11,34 @@ For more details of the method and applications, see our paper:
 
 2. Once dynCluster is installed, we created a small simulated dataset following the data generating process described in our paper. For detailed code, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
 
-+ The setup: `10` countries (`90` directed-dyads) trading `40` products over `10` time periods. Each dyad belongs to 1 of `3` different clusters in a given time period.
++ The data covers `10` countries (`90` directed-dyads) trading `40` products over `10` time periods.
+```
+##   year importer_ISO exporter_ISO SITC0_1 SITC0_2 SITC0_3  SITC0_4 SITC0_5      SITC0_6   SITC0_7 ...
+## 1    1            1            2       0       0       0      0.0       0     177.0528       0.0
+## 2    1            1            3       0       0       0 664344.6       0  536712.5031  133149.7
+## 3    1            1            4       0       0       0      0.0       0  536385.8453       0.0
+## 4    1            1            5  372390       0       0      0.0       0  536450.8843       0.0
+## 5    1            1            6 3171746 2797487 4872051 981809.8 2497946 1412988.9059 1075698.3
+## ...
+```
+
++ Each dyad belongs to 1 of `3` different clusters in a given time period.
+```
+##   cty1 cty2 dyad z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
+## 1    1   10 1_10  2  2  2  2  2  2  2  2  2   2
+## 2   10    1 1_10  2  2  2  2  2  2  2  2  2   2
+## 3    1    2  1_2  1  1  1  1  1  1  1  1  1   1
+## 4    2    1  1_2  1  1  1  1  1  1  1  1  1   1
+## 5    1    3  1_3  2  2  2  2  2  2  2  2  2   2
+## 6    3    1  1_3  2  2  2  2  2  2  2  2  2   2
+## 7    1    4  1_4  2  2  2  2  2  1  1  1  1   1
+## 8    4    1  1_4  2  2  2  2  2  1  1  1  1   1
+## 9    1    5  1_5  2  2  2  2  2  2  2  2  2   2
+## 10   5    1  1_5  2  2  2  2  2  2  2  2  2   2
+## ...
+```
   
-+ The goal: to see how well dynCluster can recover the three true clusters as well as the dyadic cluster membership.
++ The ultimate goal is to see how well dynCluster can recover the three true clusters as well as the dyadic cluster membership.
 
 + Note that this toy example runs on **t2.micro** instances on AWS, which is available as a [free tier](https://aws.amazon.com/free/).
 
@@ -47,7 +72,11 @@ For more details of the method and applications, see our paper:
     ptm <- proc.time() # start the clock
     mainZTM("./sim-25", comeBack=TRUE)
     proc.time() - ptm # stop the clock
+    
+    ##   user  system elapsed 
+    ## 16.976   0.051  17.100 
     ```
+    
 + Results will be saved to the same folder
 
 ## Assessing the Performance of dynCluster using the Toy Example
