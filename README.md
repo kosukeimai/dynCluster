@@ -65,7 +65,7 @@ For more details of the method and applications, see our paper:
         |          |           |             | **Estimated**     |             |
         |----------|-----------|------------:|------------------:|------------:|
         |          |           | Cluster 1   | Cluster 2         | Cluster 3   |
-        |          | Cluster 1 | 334         | 0                 | 0           |
-        | **True** | Cluster 2 | 2           | 374               | 12          |
-        |          | Cluster 3 | 0           | 0                 | 178         |
+        |          | Cluster 1 | 167         | 0                 | 0           |
+        | **True** | Cluster 2 | 1           | 187               | 6           |
+        |          | Cluster 3 | 0           | 0                 | 89          |
     
