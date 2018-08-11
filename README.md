@@ -42,7 +42,7 @@ We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.am
     ## ...
     ```
 
-2. We then implement dynCluster in R using the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
+2. We then implement dynCluster in R using the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster. Note that this toy example runs on **t2.micro** instances in AWS, which is available as a [free tier](https://aws.amazon.com/free/).
     ```R
     # load library
     library(dynCluster)
@@ -52,7 +52,6 @@ We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.am
     mainZTM("./sim-1", comeBack=TRUE)
     proc.time() - ptm # stop the clock
     ```
-  + Note that this toy example runs on **t2.micro** instances in AWS, which is available as a [free tier](https://aws.amazon.com/free/).
 
 3. To assess the performance of dynCluster, we create product-trade heatmaps based on the "true" cluster membership data above and the estimated cluster membership from dynCluster. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
 
