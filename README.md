@@ -71,3 +71,5 @@ We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.am
         |          | Cluster 3 | 0           | 0                 | 89          | 89    |
         |          | Total     | 168         | 187               | 95          | 450   |
     
+## Getting help
+For any questions or problems when using dynCluster, please e-mail the authors. 
