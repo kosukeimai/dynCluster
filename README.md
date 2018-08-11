@@ -26,7 +26,7 @@ We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.am
     ## ...
     ```
 
-    + For each time period, dyads belong to `3` different clusters (e.g., types of international trade). Together, the data represent the "true" dyadic cluster memberships.
+    + For each time period, dyads belong to `3` different clusters (or *types* of international trade). These data represent the "true" dyadic cluster memberships. The ultimate goal of this example is to see how well dynCluster can use the bilateral trade data above to recover the three clusters and dyadic cluster memberships.
     ```
     ##   cty1 cty2 dyad z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
     ## 1    1   10 1_10  2  2  2  2  2  2  2  2  2   2
@@ -42,8 +42,6 @@ We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.am
     ## ...
     ```
 
-    + The ultimate goal in this example is to see how well dynCluster can recover the three true clusters and the dyadic cluster memberships.
-
 2. We then implement dynCluster in R using the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
     ```R
     # load library
@@ -56,7 +54,7 @@ We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.am
     ```
   + Note that this toy example runs on **t2.micro** instances in AWS, which is available as a [free tier](https://aws.amazon.com/free/).
 
-3. To assess the performance of dynCluster, we create product-trade heatmaps based on the "true" cluster membership data above and the estimated output from dynCluster. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
+3. To assess the performance of dynCluster, we create product-trade heatmaps based on the "true" cluster membership data above and the estimated cluster membership from dynCluster. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
 
     + A side-by-side comparison of the two heatmaps below show that the composition of product trade is very similar. This suggests that dynCluster did well in recovering the original clusters.
 
