@@ -9,10 +9,11 @@ dynCluster implements a new dynamic clustering method that can effectively summa
 
 + Authors: [In Song Kim](http://web.mit.edu/insong/www/index.html), [Steven Liao](https://www.stevenliao.org/), [Kosuke Imai](http://imai.princeton.edu/)
 
-## dynCluster on Amazon Web Services: A Toy Example
-1. Install dynCluster on [Amazon Web Services (AWS)](https://aws.amazon.com/). See our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-install-dynCluster-on-AWS) for step-by-step instructions.
+## Installation
+We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.amazon.com/). This approach will allow users to easily scale up to accommodate bigger datasets. For step-by-step instructions on how to install dynCluster on AWS, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-install-dynCluster-on-AWS)
 
-2. Once dynCluster was installed, we created a small simulated dataset following the data generating process described in our paper. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
+## Usage: A Toy Example on AWS
+1. Once dynCluster is installed on AWS, we create a small simulated dataset following the data generating process described in our [paper](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf). For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
 
     + The data covers `10` countries (`90` directed-dyads) trading `40` products over `10` time periods.
     ```
@@ -25,7 +26,7 @@ dynCluster implements a new dynamic clustering method that can effectively summa
     ## ...
     ```
 
-    + For each time period, dyads belong to `3` different clusters. Together, the data represent the "true" dyadic cluster memberships.
+    + For each time period, dyads belong to `3` different clusters (e.g., types of international trade). Together, the data represent the "true" dyadic cluster memberships.
     ```
     ##   cty1 cty2 dyad z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
     ## 1    1   10 1_10  2  2  2  2  2  2  2  2  2   2
@@ -41,9 +42,9 @@ dynCluster implements a new dynamic clustering method that can effectively summa
     ## ...
     ```
 
-    + The ultimate goal is to see how well dynCluster can recover the three true clusters and the dyadic cluster memberships.
+    + The ultimate goal in this example is to see how well dynCluster can recover the three true clusters and the dyadic cluster memberships.
 
-3. We then implemented dynCluster in R using the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
+2. We then implement dynCluster in R using the function `mainZTM`. This function wraps and calls C++ functions (e.g., `mainRcpp`) from dynCluster.
     ```R
     # load library
     library(dynCluster)
@@ -55,7 +56,7 @@ dynCluster implements a new dynamic clustering method that can effectively summa
     ```
   + Note that this toy example runs on **t2.micro** instances in AWS, which is available as a [free tier](https://aws.amazon.com/free/).
 
-4. To assess the performance of dynCluster, we created product-trade heatmaps based on the "true" cluster membership data above and the estimated output from dynCluster. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
+3. To assess the performance of dynCluster, we create product-trade heatmaps based on the "true" cluster membership data above and the estimated output from dynCluster. For details, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-run-dynCluster-on-AWS).
 
     + A side-by-side comparison of the two heatmaps below show that the composition of product trade is very similar. This suggests that dynCluster did well in recovering the original clusters.
 
