@@ -63,13 +63,13 @@ We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.am
 
     + The table below cross-tabulates the true vs. estimated cluster membership for each dyad-period. The cells in the diagonal show the number of dyad-periods correctly classified. Overall, dynCluster correctly recovered **98.4%** of the true dyadic cluster memberships.
 
-        |          |           |             | **Estimated**     |             |       |
-        |----------|-----------|------------:|------------------:|------------:|------:|
-        |          |           | Cluster 1   | Cluster 2         | Cluster 3   | Total |
-        |          | Cluster 1 | 167         | 0                 | 0           | 167   |
-        | **True** | Cluster 2 | 1           | 187               | 6           | 194   |
-        |          | Cluster 3 | 0           | 0                 | 89          | 89    |
-        |          | Total     | 168         | 187               | 95          | 450   |
+        |          |           |             | **Estimated**     |             |         |
+        |----------|-----------|------------:|------------------:|------------:|--------:|
+        |          |           | Cluster 1   | Cluster 2         | Cluster 3   | *Total* |
+        |          | Cluster 1 | 167         | 0                 | 0           | 167     |
+        | **True** | Cluster 2 | 1           | 187               | 6           | 194     |
+        |          | Cluster 3 | 0           | 0                 | 89          | 89      |
+        |          | *Total*   | 168         | 187               | 95          | 450     |
     
 ## Getting help
 For any questions or problems when using dynCluster, please e-mail the authors. 
