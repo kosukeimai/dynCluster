@@ -49,7 +49,7 @@ We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.am
         
     # run and time dynCluster
     ptm <- proc.time() # start the clock
-    mainZTM("./sim-1", comeBack=TRUE)
+    mainZTM("./example/toy", comeBack=TRUE)
     proc.time() - ptm # stop the clock
     ```
 
