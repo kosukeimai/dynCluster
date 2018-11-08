@@ -24,4 +24,3 @@ Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
 \dontrun{sourceCpp("./src/mainRcpp.cpp")}
 \dontrun{mainZTM("./example", comeBack=TRUE)}
 }
-

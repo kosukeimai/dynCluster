@@ -2,20 +2,15 @@
 #'
 #' @param file.dir The file directory of the held-out data.
 #' @return A dataframe that contains D_ijtk and W_ijtk in long form.
+#' @import dplyr 
+#' @import purrr
+#' @import tidyr 
+#' @import utils
+#' @export
 #' @examples
-#' file.dir <- "~/Dropbox/Research/BIGtrade/data/raw_data/sitcv1-244-decades/dynamic_2012.csv"
+#' file.dir <- "../dynCluster-master/example/toy/dynamic_1970.csv"
 #' df <- computeDsWs(file.dir)
-#' save(df, file = "~/Dropbox/Research/BIGtrade-select/data/likelihood_test/D_ijtk-W_ijtk.Rdata")
-computeDsWs <- function(file.dir = NULL){
-  
-  ##############################################################################
-  ## setup 
-  ##############################################################################
-  # load packages
-  pkg <- c("foreign", 
-           "tidyverse")
-  lapply(pkg, require, character.only = TRUE)
-  
+computeDsWs <- function(file.dir){
   
   ##############################################################################
   ## read in raw trade data X_ijtk
@@ -23,17 +18,17 @@ computeDsWs <- function(file.dir = NULL){
   cat("Reading in raw data\n")
   
   # read sample data
-  sampleData <- read.table(file.dir, 
-                           header = TRUE, 
-                           check.names = FALSE, nrow = 1)
+  sampleData <- utils::read.table(file.dir, 
+                                  header = TRUE, 
+                                  check.names = FALSE, nrow = 1)
   ncols <- ncol(sampleData)
   
   # read in all data
-  df.r <- read.table(file.dir,
-                     header = TRUE,
-                     check.names = FALSE,
-                     colClasses = c(rep("character", 3),
-                                    rep("numeric", (ncols - 3))))
+  df.r <- utils::read.table(file.dir,
+                            header = TRUE,
+                            check.names = FALSE,
+                            colClasses = c(rep("character", 3),
+                                           rep("numeric", (ncols - 3))))
   
   # # check
   # head(df.r)
@@ -41,9 +36,9 @@ computeDsWs <- function(file.dir = NULL){
   
   # change to long form
   df.l <- df.r %>%
-    gather(sitc, X_ijtk, 
-           -year, -importer_ISO, -exporter_ISO) %>%
-    arrange(year, importer_ISO, exporter_ISO)
+    tidyr::gather(sitc, X_ijtk, 
+                  -year, -importer_ISO, -exporter_ISO) %>%
+    dplyr::arrange(year, importer_ISO, exporter_ISO)
   
 
   ##############################################################################
@@ -62,15 +57,15 @@ computeDsWs <- function(file.dir = NULL){
   cat("Computing variables of interest\n")
   
   df.out <- df.l%>%
-    group_by(importer_ISO, exporter_ISO) %>%
-    mutate(tot_direct_dyad_year_volume = sum(X_ijtk, na.rm = TRUE),
-           V_ijtk = X_ijtk/tot_direct_dyad_year_volume,
-           sum_direct_dyad_prod_share = sum(V_ijtk, na.rm = TRUE),
-           D_ijtk = if_else(V_ijtk == 0 | (X_ijtk == 0 & tot_direct_dyad_year_volume == 0), 1, 0),
-           V_ijt_last_prod = X_ijtk[sitc == names(df.r)[length(names(df.r))]],
-           V_ijt_last_prod_c = if_else(V_ijt_last_prod == 0, V_ijt_last_prod + c, V_ijt_last_prod), # consistent with C++ code
-           W_ijtk = if_else(V_ijtk == 0, NA_real_, log(V_ijtk/V_ijt_last_prod_c))) %>%
-    ungroup()
+    dplyr::group_by(importer_ISO, exporter_ISO) %>%
+    dplyr::mutate(tot_direct_dyad_year_volume = sum(X_ijtk, na.rm = TRUE),
+                  V_ijtk = X_ijtk/tot_direct_dyad_year_volume,
+                  sum_direct_dyad_prod_share = sum(V_ijtk, na.rm = TRUE),
+                  D_ijtk = if_else(V_ijtk == 0 | (X_ijtk == 0 & tot_direct_dyad_year_volume == 0), 1, 0),
+                  V_ijt_last_prod = X_ijtk[sitc == names(df.r)[length(names(df.r))]],
+                  V_ijt_last_prod_c = if_else(V_ijt_last_prod == 0, V_ijt_last_prod + c, V_ijt_last_prod), # consistent with C++ code
+                  W_ijtk = if_else(V_ijtk == 0, NA_real_, log(V_ijtk/V_ijt_last_prod_c))) %>%
+    dplyr::ungroup()
   
   # # check
   # head(df.out)
@@ -84,16 +79,16 @@ computeDsWs <- function(file.dir = NULL){
   
   # create vars
   df.out <- df.out %>% 
-    select(importer_ISO, exporter_ISO, sitc, D_ijtk, W_ijtk) %>%
-    mutate(dyad_id = ifelse(as.numeric(importer_ISO) < as.numeric(exporter_ISO), 
-                            paste(importer_ISO, exporter_ISO, sep = "_"), 
-                            paste(exporter_ISO, importer_ISO, sep = "_")),
-           sitc_dir = ifelse(as.numeric(importer_ISO) < as.numeric(exporter_ISO), 
-                             sitc, 
-                             paste(sitc, ".1", sep = "")),
-           sitc_dir_flip = ifelse(as.numeric(importer_ISO) > as.numeric(exporter_ISO),
-                                  sitc,
-                                  paste(sitc, ".1", sep = "")))
+    dplyr::select(importer_ISO, exporter_ISO, sitc, D_ijtk, W_ijtk) %>%
+    dplyr::mutate(dyad_id = ifelse(as.numeric(importer_ISO) < as.numeric(exporter_ISO), 
+                                   paste(importer_ISO, exporter_ISO, sep = "_"), 
+                                   paste(exporter_ISO, importer_ISO, sep = "_")),
+                  sitc_dir = ifelse(as.numeric(importer_ISO) < as.numeric(exporter_ISO), 
+                                    sitc, 
+                                    paste(sitc, ".1", sep = "")),
+                  sitc_dir_flip = ifelse(as.numeric(importer_ISO) > as.numeric(exporter_ISO),
+                                         sitc,
+                                         paste(sitc, ".1", sep = "")))
   
   return(df.out)
 }

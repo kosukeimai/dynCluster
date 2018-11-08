@@ -26,4 +26,3 @@ Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
 \dontrun{sourceCpp("./src/mainRcpp.cpp")}
 \dontrun{testExample("./example", nThreads=4, comeBack=TRUE)}
 }
-

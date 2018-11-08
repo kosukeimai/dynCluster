@@ -6,11 +6,11 @@
 \usage{
 ztmR(nsim = 1, maxiter = 5, eps = 0.001, numModelsM = 3, nu = 0,
   OP_w_ij_inp = 1e-06, years = c(1962, 1972, 1982, 1992, 2002),
-  numThreads = 1, total_mc_trials = 2, q_filename = "CHECKPOINT_Q.txt",
-  mu_filename = "CHECKPOINT_MU.txt",
+  numThreads = 1, total_mc_trials = 2,
+  q_filename = "CHECKPOINT_Q.txt", mu_filename = "CHECKPOINT_MU.txt",
   sigmasq_filename = "CHECKPOINT_SIGMASQ.txt",
-  pi_filename = "CHECKPOINT_PI.txt", zeta_filename = "CHECKPOINT_ZETA.txt",
-  seedOffset = 1)
+  pi_filename = "CHECKPOINT_PI.txt",
+  zeta_filename = "CHECKPOINT_ZETA.txt", seedOffset = 1)
 }
 \arguments{
 \item{nsim}{number of simulation}
@@ -58,4 +58,3 @@ Sys.setenv("PKG_LIBS" = "-fopenmp -lboost_regex")
 \dontrun{ztm()}
 \dontrun{setwd("./..")}
 }
-
