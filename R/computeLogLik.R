@@ -16,7 +16,7 @@
 #' @importFrom stats dnorm
 #' @export
 #' @examples
-#' # set directories
+#' \dontrun{# set directories
 #' test.dir <- "./example/toy/dynamic_1970.csv"
 #' out.dir <- "./example/toy"
 #' 
@@ -28,7 +28,7 @@
 #'   out <- computeLogLik(n.cluster = 3, n.period = 10, 
 #'                        file.dir = out.dir, test.df = df, 
 #'                        test.run = TRUE)
-#' )
+#' )}
 computeLogLik <- function(n.cluster, n.period, file.dir, test.df, test.run){
   
   ##############################################################################

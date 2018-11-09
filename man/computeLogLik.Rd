@@ -27,7 +27,7 @@ and a dataframe that contains the hold-out log-likelihood for each dyad.
 A function to compute hold-out log-likelihood
 }
 \examples{
-# set directories
+\dontrun{# set directories
 test.dir <- "./example/toy/dynamic_1970.csv"
 out.dir <- "./example/toy"
 
@@ -39,5 +39,5 @@ system.time(
   out <- computeLogLik(n.cluster = 3, n.period = 10, 
                        file.dir = out.dir, test.df = df, 
                        test.run = TRUE)
-)
+)}
 }

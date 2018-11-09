@@ -8,8 +8,8 @@
 #' @import utils
 #' @export
 #' @examples
-#' file.dir <- "./example/toy/dynamic_1970.csv"
-#' df <- computeDsWs(file.dir)
+#' \dontrun{file.dir <- "./example/toy/dynamic_1970.csv"
+#' df <- computeDsWs(file.dir)}
 computeDsWs <- function(file.dir){
   
   ##############################################################################
