@@ -8,7 +8,7 @@
 #' @import utils
 #' @export
 #' @examples
-#' file.dir <- "../dynCluster-master/example/toy/dynamic_1970.csv"
+#' file.dir <- "./example/toy/dynamic_1970.csv"
 #' df <- computeDsWs(file.dir)
 computeDsWs <- function(file.dir){
   

@@ -16,6 +16,6 @@ A dataframe that contains D_ijtk and W_ijtk in long form.
 A function that computes D_ijtk and W_ijtk using the held-out trade data
 }
 \examples{
-file.dir <- "../dynCluster-master/example/toy/dynamic_1970.csv"
+file.dir <- "./example/toy/dynamic_1970.csv"
 df <- computeDsWs(file.dir)
 }

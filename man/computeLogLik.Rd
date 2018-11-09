@@ -28,8 +28,8 @@ A function to compute hold-out log-likelihood
 }
 \examples{
 # set directories
-test.dir <- "../dynCluster-master/example/toy/dynamic_1970.csv"
-out.dir <- "../dynCluster-master/example/toy"
+test.dir <- "./example/toy/dynamic_1970.csv"
+out.dir <- "./example/toy"
 
 # extract D_ijtk and W_ijtk
 df <- computeDsWs(test.dir)
