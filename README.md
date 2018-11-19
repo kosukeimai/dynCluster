@@ -7,7 +7,7 @@ dynCluster implements a new dynamic clustering method that can effectively summa
 
 + [Measuring Trade Profile with Granular Product-level Trade Data](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf)
 
-+ Authors: [In Song Kim](http://web.mit.edu/insong/www/index.html), [Steven Liao](https://www.stevenliao.org/), [Kosuke Imai](http://imai.princeton.edu/)
++ Authors: [In Song Kim](http://web.mit.edu/insong/www/index.html), [Steven Liao](https://www.stevenliao.org/), [Kosuke Imai](https://imai.fas.harvard.edu/)
 
 ## Installation
 We recommend installing dynCluster on [Amazon Web Services (AWS)](https://aws.amazon.com/). This approach will allow users to easily scale up to accommodate bigger datasets. For step-by-step instructions on how to install dynCluster on AWS, see our [Wiki page](https://github.com/kosukeimai/dynCluster/wiki/How-to-install-dynCluster-on-AWS)
