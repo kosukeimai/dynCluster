@@ -1,7 +1,5 @@
 # dynCluster: Dynamic Clustering Algorithm 
 
-[![Build Status](https://travis-ci.org/kosukeimai/dynCluster.svg?branch=master)](https://travis-ci.org/kosukeimai/dynCluster)
-
 ## Overview
 dynCluster implements a new dynamic clustering method that can effectively summarize massive amounts of granular dyadic flow data. For more details of the method and applications, see:
 
