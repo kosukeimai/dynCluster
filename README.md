@@ -3,7 +3,7 @@
 ## Overview
 dynCluster implements a new dynamic clustering method that can effectively summarize massive amounts of granular dyadic flow data. For more details of the method and applications, see:
 
-+ [Measuring Trade Profile with Granular Product-level Trade Data](https://www.stevenliao.org/uploads/2/5/6/9/25699716/bigtrade.pdf)
++ [Measuring Trade Profile with Granular Product-level Trade Data](https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12473)
 
 + Authors: [In Song Kim](http://web.mit.edu/insong/www/index.html), [Steven Liao](https://www.stevenliao.org/), [Kosuke Imai](https://imai.fas.harvard.edu/)
 
